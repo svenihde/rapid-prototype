@@ -1,5 +1,10 @@
 class WelcomeController < ApplicationController
   def index
+	if cookies[:is_active] 
+		show_cookies	
+	else	
+		set_cookies
+	end
   end
   def set_cookies
     cookies[:user_name]   = "Horst Meier" 

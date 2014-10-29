@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141029141418) do
+ActiveRecord::Schema.define(version: 20141029162221) do
 
   create_table "backgrounds", force: true do |t|
     t.string   "cookie"
@@ -24,6 +24,14 @@ ActiveRecord::Schema.define(version: 20141029141418) do
     t.string   "type"
     t.string   "sub_type"
     t.string   "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "stages", force: true do |t|
+    t.string   "user_id"
+    t.string   "enabled"
+    t.string   "completed"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

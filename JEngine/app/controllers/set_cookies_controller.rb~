@@ -5,4 +5,5 @@ class SetCookiesController < ApplicationController
   def delete_cookies
       cookies.delete :cookie_id
   end
+  end
 end

@@ -5,6 +5,7 @@ class TaskController < ApplicationController
   def done
 	puts 'done editing'
   end
+
   def completed
       cookie_id = cookies[:cookie_id]
       task_id = params[:task_id]

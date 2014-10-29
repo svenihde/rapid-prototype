@@ -1,9 +1,8 @@
 Rails.application.routes.draw do
-  get 'set_cookies/show_cookies'
-
-  get 'set_cookies/delete_cookies'
-
-   #get 'welcome/index'
+   get 'set_cookies/show_cookies'
+   get 'set_cookies/delete_cookies'
+   post 'task/new'  => 'task#completed'
+   get 'task/done'
 
    resources :overview
    resources :task	

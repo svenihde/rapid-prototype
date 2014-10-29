@@ -23,10 +23,18 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
 gem 'spring',        group: :development
 
+<<<<<<< HEAD
+# Twitter Bootstrap
+gem "twitter-bootstrap-rails"
+# Use ActiveModel has_secure_password
+# gem 'bcrypt', '~> 3.1.7'
+
+# Use unicorn as the app server
+# gem 'unicorn'
+=======
 # Multithreaded Webserver in order to handle parrallel REST requests
 gem "unicorn-rails"
+>>>>>>> 184b982f8e0779363b6f80e19ded001c9e62f731
 
-#Twitter Bootstrap
-gem "twitter-bootstrap-rails"
 
 

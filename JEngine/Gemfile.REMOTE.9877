@@ -26,7 +26,5 @@ gem 'spring',        group: :development
 # Multithreaded Webserver in order to handle parrallel REST requests
 gem "unicorn-rails"
 
-#Twitter Bootstrap
-gem "twitter-bootstrap-rails"
 
 

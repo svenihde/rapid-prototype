@@ -4,5 +4,6 @@
 	<l><a href="#">Overview</a></l>
 	<br>
 	<l><a href="#">Complete next task</a></l>
+	<br>
 	<l><a href="task/new">Create new task</a></l>
 </u>

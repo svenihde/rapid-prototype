@@ -1,0 +1,3 @@
+<table>
+ <tr><td>User ID:</td><td><%= @cookie_id %></td></tr>
+</table>

@@ -8,7 +8,7 @@
     <%= f.label :text %><br>
     <%= f.text_area :text %>
   </p>
- 
+  <%= hidden_field("task", "completed") %>
   <p>
     <%= f.submit %>
   </p>

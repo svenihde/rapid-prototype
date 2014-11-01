@@ -4,6 +4,7 @@ Rails.application.routes.draw do
    post 'task/new'  => 'task#completed'
    get 'task/done'
    post 'activity/new'  => 'activity#create'
+   get 'activity/done'
 
    resources :overview
    resources :task	

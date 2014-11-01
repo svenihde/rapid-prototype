@@ -3,12 +3,14 @@ class ActivityController < ApplicationController
 	#puts 'adding activity'
   end
   def create
-	render plain: params[:activity].inspect
-	foo = Activites.create(title: title, description: description)
-        if !foo
-	 	puts 'error during adding new activity into DB'
-        end
-        
+	# Printing form post parameters	
+	#render plain: params[:activity].inspect
+
+	@Activity = Activity.new(activity_params)
+	foo = @Activity.save
+	if !foo
+		puts 'error in saving activity into DB'
+	end        
         redirect_to :action => 'done'
 	
 	#task_id = Activity.order("update_at DESC").limit(1)
@@ -20,4 +22,9 @@ class ActivityController < ApplicationController
 	#task_id =
 	#puts 'editing activity'
   end
+
+  private
+	def activity_params
+		params.require(:activity).permit(:title, :description)
+	end	
 end

@@ -3,14 +3,28 @@ class ActivityController < ApplicationController
 	#puts 'adding activity'
   end
   def create
-	render plain: params[:activity].inspect
-	foo = Activites.create(title: title, description: description)	
-	task_id = Activity.order("update_at DESC").limit(1)
+	# Printing form post parameters	
+	#render plain: params[:activity].inspect
 
-	puts 'you added the activity with the task_id #{task_id}'
+	@Activity = Activity.new(params[:activity])
+	foo = @Activity.save
+	if !foo
+		puts 'error in saving activity into DB'
+	end        
+        redirect_to :action => 'done'
+	
+	#task_id = Activity.order("update_at DESC").limit(1)
+	#puts 'you added the activity with the task_id #{task_id}'
+  end
+  def done
   end
   def edit
 	#task_id =
 	#puts 'editing activity'
   end
+
+  private
+	def activity_params
+		params.require(:activity).permit(:title, :description)
+	end	
 end

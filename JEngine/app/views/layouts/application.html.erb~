@@ -69,13 +69,15 @@
               <li class="nav-header">Sidebar</li>
               <li><%= link_to "Overview", "http://localhost:3000"  %></li>
               <li><%= link_to "Complete next task", "http://localhost:3000/task/new"  %></li>
+		 <li><%= link_to "Create new task", "http://localhost:3000/activity/new"  %></li>
+
             </ul>
           </div><!--/.well -->
         </div><!--/span-->
       </div><!--/row-->
 
       <footer>
-        <p>&copy; Company 2014</p>
+        <p>&copy; HPI 2014</p>
       </footer>
 
     </div> <!-- /container -->

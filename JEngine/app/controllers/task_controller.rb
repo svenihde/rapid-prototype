@@ -1,4 +1,6 @@
 class TaskController < ApplicationController
+  #
+  #
   def new
 	if !cookies[:cookie_id] 
 		redirect_to root_path
@@ -21,14 +23,21 @@ class TaskController < ApplicationController
 		@next_task = Activity.where(id: upcoming_task).first
 	end	
   end
+   
+  #
+  #
   def process_finished
   end
+  
+  #
+  #
   def done
-	#puts 'done editing'
   end
+  
+  #
+  #
   def completed
       cookie_id = cookies[:cookie_id]
-      #fo = Activity.new(task_params)
       task_id = params['task']['id']
 
       #updates db record
@@ -45,6 +54,9 @@ class TaskController < ApplicationController
 
       redirect_to :action => 'done'
   end
+  
+  #
+  #
   private
 	def task_params
 		params.require(:task).permit(:id, :title, :description)

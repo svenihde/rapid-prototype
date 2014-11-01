@@ -6,7 +6,7 @@ class ActivityController < ApplicationController
 	# Printing form post parameters	
 	#render plain: params[:activity].inspect
 
-	@Activity = Activity.new(params[:activity])
+	@Activity = Activity.new(activity_params)
 	foo = @Activity.save
 	if !foo
 		puts 'error in saving activity into DB'

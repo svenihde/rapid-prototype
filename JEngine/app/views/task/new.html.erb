@@ -1,15 +1,18 @@
-<%= form_for :task do |f| %>
+<%= form_for :task do |task| %>
   <p>
-    <%= f.label :title %><br>
-    <%= f.text_field :title %>
+    <%= task.label :id %><br>
+    <%= task.text_field :id %>
+  </p>
+  <p>
+    <%= task.label :title %><br>
+    <%= task.text_field :title %>
   </p>
  
   <p>
-    <%= f.label :text %><br>
-    <%= f.text_area :text %>
+    <%= task.label :description %><br>
+    <%= task.text_area :description %>
   </p>
-  <%= hidden_field "task_id", "183812984" %>
   <p>
-    <%= f.submit %>
+    <%= task.submit %>
   </p>
 <% end %>

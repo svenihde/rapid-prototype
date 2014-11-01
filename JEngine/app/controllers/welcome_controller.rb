@@ -6,6 +6,7 @@ class WelcomeController < ApplicationController
 		puts "user unknown - setting cookie"
 		set_cookies
 	end
+	@activity_list = Activity.all
   end
   def set_cookies
     cookies[:cookie_id] = rand(999999) 

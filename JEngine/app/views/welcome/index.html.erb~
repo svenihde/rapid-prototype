@@ -1,9 +1,17 @@
 <h1>Welcome to the JEngine</h1>
-<p>Please chose from the Menu</p>
-<u>
-	<l><a href="#">Overview</a></l>
-	<br>
-	<l><a href="#">Complete next task</a></l>
-	<br>
-	<l><a href="task/new">Create new task</a></l>
-</u>
+<p> here you can see the activities of the current available process </p>
+
+<table>                         
+  <tr>    
+    <th>task ID</th>                      
+    <th>title</th>
+    <th>description</th>
+  </tr>
+<% @activity_list.each do |activity_list| %>      
+  <tr>
+    <td><%= activity_list.id %></td>
+    <td><%= activity_list.title %></td>  
+    <td><%= activity_list.description %></td> 
+  </tr>
+<% end %>                        
+</table>  

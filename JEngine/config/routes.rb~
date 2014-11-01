@@ -1,11 +1,12 @@
 Rails.application.routes.draw do
    get 'set_cookies/show_cookies'
    get 'set_cookies/delete_cookies'
-   post 'task/new'
-   get 'task/done' => 'task#completed'
+   post 'task/new'  => 'task#completed'
+   get 'task/done'
 
    resources :overview
    resources :task	
+   resources :activity
 
    # You can have the root of your site routed with "root"
    root 'welcome#index'

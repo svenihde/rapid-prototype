@@ -9,6 +9,7 @@ class TaskController < ApplicationController
 	
 	# Runtime-knowledge: lookup process model from table for each next step (could be cached to improve performance)
 	pick_next_task(find_current_process, find_last_completed_task)	
+	#render text: @upcoming_task.inspect
 
 	foo = Activity.where(id: @upcoming_task).empty?
 	if foo
@@ -53,15 +54,21 @@ class TaskController < ApplicationController
 	#TODO: activity_id must not be identically to activity_id in process
 	position = sequence[last_completed_task] 
 	position = position+ 1
-	#render text: sequence.inspect
-	sequence.each { |key,value| set_upcoming_task(value) if value == position }
+	@upcoming_task = sequence.invert[position]
+
+	if !is_number(@upcoming_task)
+		notification = "processing with module"
+		#render text: notification.inspect
+		# continue with module
+	end
+	if @upcoming_task.nil?
+		notification = "we are already in a module"
+		#render text: notification.inspect
+		# then we are already in a module
+	end
   end   
 
-  #
-  #
-  def set_upcoming_task(value)
-	@upcoming_task = value
-  end   
+  
   #
   #
   def process_finished
@@ -98,6 +105,13 @@ class TaskController < ApplicationController
   def process_overview
 	@activity_list = Activity.all
   end
+
+  #
+  #
+  def is_number(param1)
+	return param1.is_a? Numeric
+  end
+
   #
   #
   private

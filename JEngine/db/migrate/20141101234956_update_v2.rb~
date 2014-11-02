@@ -3,11 +3,10 @@ class UpdateV2 < ActiveRecord::Migration
 	add_column :activities, :kind, :string
 	add_column :stages, :skipped, :text
 	add_column :stages, :processes, :text
+	add_column :stages, :finished, :bolean
 	add_column :activities, :open, :text
-	add_column :processes, :modul, :Hash
 	#change_column :activities, :completed, :text
 	#change_column :activities, :enabled, :text
-	#change_column :processes, :module, :Hash
 
 	drop_table :backgrounds
 	drop_table :pcms

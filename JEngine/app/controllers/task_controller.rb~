@@ -33,7 +33,7 @@ class TaskController < ApplicationController
 	#TODO: activity_id must not be identically to activity_id in process
 	position = sequence[last_completed_task] 
 	position = position+ 1
-	render text: sequence.inspect
+	#render text: sequence.inspect
 	sequence.each { |key,value| set_upcoming_task(value) if value == position }
 		
 	#render text: @upcoming_task.inspect

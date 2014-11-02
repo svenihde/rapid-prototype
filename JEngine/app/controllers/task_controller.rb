@@ -29,7 +29,7 @@ class TaskController < ApplicationController
 	sequence = Processes.find_by(id: process_id).sequence	
 	modul = Processes.find_by(id: process_id).module
 
-	# selecting next element
+	# selecting next task / activity
 	#TODO: activity_id must not be identically to activity_id in process
 	position = sequence[last_completed_task] 
 	position = position+ 1

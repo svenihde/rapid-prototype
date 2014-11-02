@@ -5,38 +5,10 @@ class TaskController < ApplicationController
 	if !cookies[:cookie_id] 
 		redirect_to root_path
 	end
-	foo = Stages.find_by(user_id: cookies[:cookie_id]).completed.nil?
-	if foo
-		completed_tasks = Array.new
-		completed_tasks << '1'
-	else
-		completed_tasks = Stages.find_by(user_id: cookies[:cookie_id]).completed	
-	end
-	# Runtime-knowledge: lookup process model from table for each next step (could be cached to improve performance)
-	last_completed_task = completed_tasks.max
 	
-	# retrieving informations to correlating process
-#TODO: assumption = right now we just handle one process per user, to be edited if we handle more than 1 process simutanously
+	# Runtime-knowledge: lookup process model from table for each next step (could be cached to improve performance)
+	pick_next_task(find_current_process, find_last_completed_task)	
 
-	foo = Stages.find_by(user_id: cookies[:cookie_id]).processes.empty?
-	if foo
-		process_id = '1'	
-	else
-		process_id = Stages.find_by(user_id: cookies[:cookie_id]).processes
-	end	
-	process_id = process_id.to_i
-
-	sequence = Processes.find_by(id: process_id).sequence	
-	modul = Processes.find_by(id: process_id).module
-
-	# selecting next task / activity
-	#TODO: activity_id must not be identically to activity_id in process
-	position = sequence[last_completed_task] 
-	position = position+ 1
-	#render text: sequence.inspect
-	sequence.each { |key,value| set_upcoming_task(value) if value == position }
-		
-	#render text: @upcoming_task.inspect
 	foo = Activity.where(id: @upcoming_task).empty?
 	if foo
 		redirect_to :action => 'process_finished'
@@ -44,6 +16,45 @@ class TaskController < ApplicationController
 		@next_task = Activity.where(id: @upcoming_task).first
 	end	
   end
+
+  #
+  #
+  def find_last_completed_task
+	foo = Stages.find_by(user_id: cookies[:cookie_id]).completed.nil?
+	if foo
+		completed_tasks = Array.new
+		completed_tasks << '1'
+	else
+		completed_tasks = Stages.find_by(user_id: cookies[:cookie_id]).completed	
+	end
+	return (completed_tasks.max)
+  end 
+
+  #
+  #
+  def find_current_process
+	#TODO: assumption = right now we just handle one process per user, to be edited if we handle more than 1 process simutanously
+	foo = Stages.find_by(user_id: cookies[:cookie_id]).processes.empty?
+	if foo
+		process_id = '1'	
+	else
+		process_id = Stages.find_by(user_id: cookies[:cookie_id]).processes
+	end
+	return (process_id.to_i)
+  end 
+
+  #
+  #
+  def pick_next_task(process_id, last_completed_task)
+	sequence = Processes.find_by(id: process_id).sequence	
+	modul = Processes.find_by(id: process_id).module
+
+	#TODO: activity_id must not be identically to activity_id in process
+	position = sequence[last_completed_task] 
+	position = position+ 1
+	#render text: sequence.inspect
+	sequence.each { |key,value| set_upcoming_task(value) if value == position }
+  end   
 
   #
   #

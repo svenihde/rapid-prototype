@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141101234956) do
+ActiveRecord::Schema.define(version: 20141102001327) do
 
   create_table "activities", force: true do |t|
     t.string   "title"
@@ -22,6 +22,15 @@ ActiveRecord::Schema.define(version: 20141101234956) do
     t.text     "open"
   end
 
+  create_table "processes", force: true do |t|
+    t.string   "title"
+    t.text     "sequence"
+    t.text     "module"
+    t.text     "comments"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "stages", force: true do |t|
     t.string   "user_id"
     t.string   "enabled"
@@ -29,6 +38,7 @@ ActiveRecord::Schema.define(version: 20141101234956) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "skipped"
+    t.text     "processes"
   end
 
 end

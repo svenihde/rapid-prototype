@@ -10,9 +10,6 @@ activities = Activity.create([{title: 'Brainstorming', kind: 'usertask', descrip
 #
 # Including example Process 
 #
-# as array
-#processes = Processes.create([{title: 'Knowledge Management', sequence: '["1", "2", "a", "5", "b"]', module: "['a' => ['type' => 'xor', 'activies' => '[['3'],['4']]'],'b' => ['type' => 'and', activies => '[['6','7'],['8']]'] ]", comments: 'pretty cool, wah?!',}])
-# as hash
 @hash = {
   "a" => {
     kind: "xor",

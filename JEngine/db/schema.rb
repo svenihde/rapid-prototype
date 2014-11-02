@@ -11,28 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141101125321) do
+ActiveRecord::Schema.define(version: 20141101234956) do
 
   create_table "activities", force: true do |t|
     t.string   "title"
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "backgrounds", force: true do |t|
-    t.string   "cookie"
-    t.string   "last_task"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "pcms", force: true do |t|
-    t.string   "type"
-    t.string   "sub_type"
-    t.string   "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.string   "kind"
+    t.text     "open"
   end
 
   create_table "stages", force: true do |t|
@@ -41,6 +28,7 @@ ActiveRecord::Schema.define(version: 20141101125321) do
     t.string   "completed"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "skipped"
   end
 
 end

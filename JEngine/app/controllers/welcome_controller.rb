@@ -6,7 +6,8 @@ class WelcomeController < ApplicationController
     		show_cookies
     	else	
     		puts "user unknown - setting cookie"
-    		set_cookies
+    		set_cookies	
+		Stages.create(user_id: cookies[:cookie_id], processes: '1')
     	end
     	@activity_list = Activity.all
     	show_completed_activites

@@ -1,4 +1,4 @@
 class Processes < ActiveRecord::Base
-	serialize :module
-	serialize :sequence
+	serialize :module, Hash
+	serialize :sequence, Hash
 end

@@ -10,7 +10,7 @@ activities = Activity.create([{title: 'Brainstorming', kind: 'usertask', descrip
 if !activities
 	puts "some error occured during inserting sample records for activities: #{activities}"
 else
-	puts "activities insertion successful! #{activities}"
+	puts "activities insertion successful!"
 end
 
 #
@@ -29,7 +29,7 @@ end
   }
 }
 
-processes = Processes.create([{title: 'Knowledge Management', sequence: '{"1"=>0, "2"=>1, "a"=>2, "5"=>3, "b"=>4}', module: @hash, comments: 'pretty cool, wah?!',}])
+processes = Processes.create([{title: 'Knowledge Management', sequence: {"1"=>0, "2"=>1, "a"=>2, "5"=>3, "b"=>4}, module: @hash, comments: 'pretty cool, wah?!',}])
 
 if !processes
 	puts "some error occured during inserting sample records for processes: #{processes}"

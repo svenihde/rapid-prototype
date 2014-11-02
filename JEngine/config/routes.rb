@@ -5,6 +5,7 @@ Rails.application.routes.draw do
    post 'task/new'  => 'task#completed'
    get 'task/done'
    get 'task/process_finished'
+   get 'task/process_overview'
 
    post 'activity/new'  => 'activity#create'
    get 'activity/done'

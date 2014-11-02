@@ -1,4 +1,5 @@
 class TaskController < ApplicationController
+
   #
   #
   def new
@@ -92,6 +93,11 @@ class TaskController < ApplicationController
       redirect_to :action => 'done'
   end
   
+  #
+  #
+  def process_overview
+	@activity_list = Activity.all
+  end
   #
   #
   private

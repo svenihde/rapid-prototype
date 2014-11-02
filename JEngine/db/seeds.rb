@@ -7,6 +7,12 @@
 #
 activities = Activity.create([{title: 'Brainstorming', kind: 'usertask', description: 'Think about Ideas to improve Something'},{title: 'Documentation', kind: 'usertask', description: 'Write down your Ideas on a paper'},{title: 'Communication', kind: 'usertask', description: 'Send your Documentation to your neighbor'}, {title: 'Feedback', kind: 'usertask', description: 'Wait for Feedback - at least 1 Minute'}, {title: 'FinishUp', kind: 'usertask', description: 'Delete all your notes'}])
 
+if !activities
+	puts "some error occured during inserting sample records for activities: #{activities}"
+else
+	puts "activities insertion successful!"
+end
+
 #
 # Including example Process 
 #
@@ -25,6 +31,11 @@ activities = Activity.create([{title: 'Brainstorming', kind: 'usertask', descrip
 
 processes = Processes.create([{title: 'Knowledge Management', sequence: '{"1"=>0, "2"=>1, "a"=>2, "5"=>3, "b"=>4}', module: @hash, comments: 'pretty cool, wah?!',}])
 
+if !processes
+	puts "some error occured during inserting sample records for processes: #{processes}"
+else
+	puts "processes insertion successful!"
+end
 
 
 

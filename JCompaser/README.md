@@ -1,4 +1,4 @@
-rapid-prototype
+JCompaser
 ===============
 
-Within this repo we want to accomplish rapid prototyping. The first prototype will be for the PCM Engine in order to have a first showcase with modellierung & execution.
+The JCompaser is a rapid prototype to get a better understanding of parsing a BPMN XML and preparing it for DB usage

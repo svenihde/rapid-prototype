@@ -5,8 +5,6 @@ class UpdateV2 < ActiveRecord::Migration
 	add_column :stages, :processes, :text
 	add_column :stages, :finished, :string
 	add_column :activities, :open, :text
-	#change_column :activities, :completed, :text
-	#change_column :activities, :enabled, :text
 
 	drop_table :backgrounds
 	drop_table :pcms

@@ -19,12 +19,13 @@ end
 @hash = {
   "a" => {
     kind: "xor",
-    "activities" => {{"3" => 0} => 0 , 
-		     {"4" => 0} => 1}
+    activities: => {{"3" => 0} => 0 , 
+		     {"4" => 0} => 1},
+    condition: "x = y"
   },
   "b" => {
     kind: "and",
-    "activities" => {{"6" => 0,"7" => 1} => 0,
+    activities: => {{"6" => 0,"7" => 1} => 0,
 		              {"8" => 0} => 1}
   }
 }

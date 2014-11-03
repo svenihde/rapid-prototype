@@ -12,8 +12,9 @@ class TaskController < ApplicationController
 	#render text: @upcoming_task.inspect
 
 	foo = Activity.where(id: @upcoming_task).empty?
-	if foo
+	if foo or Stages.find_by(user_id: cookies[:cookie_id]).done
 		redirect_to :action => 'process_finished'
+		# TODO: currently only one user can have one process even if its finished.
 	else
 		@next_task = Activity.where(id: @upcoming_task).first
 	end	
@@ -57,9 +58,16 @@ class TaskController < ApplicationController
 	@upcoming_task = sequence.invert[position]
 
 	if !is_number(@upcoming_task)
-		notification = "processing with module"
-		#render text: notification.inspect
-		# continue with module
+		bulk = modul[@upcoming_task]
+		if bulk[kind:] == "xor"
+			if bulk[condition:]
+				# execute bulk[activities][1]
+			else							
+				# execute bulk[activities][2]
+			end
+		elsif if bulk[kind:] == "and"
+			# execute both bulk[activities][1] & bulk[activities][2]
+		end
 	end
 	if @upcoming_task.nil?
 		notification = "we are already in a module"
@@ -72,6 +80,7 @@ class TaskController < ApplicationController
   #
   #
   def process_finished
+	Stages.where(:user_id => cookie_id).update_all(:done => true)
   end
   
   #

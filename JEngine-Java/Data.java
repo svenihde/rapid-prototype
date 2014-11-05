@@ -19,6 +19,12 @@ public class Data {
         }
     }
 
+    public Boolean setDataState(int scenario_id, int id, String state){
+        if(!data.containsKey(scenario_id) || !data.get(scenario_id).containsKey(id)) return false;
+        data.get(scenario_id).put(id, state);
+        return true;
+    }
+
 
 
 }

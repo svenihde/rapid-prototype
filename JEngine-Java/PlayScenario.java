@@ -1,3 +1,5 @@
+//package rapid-prototype.JEngine-Java;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -56,6 +58,8 @@ public class PlayScenario extends HttpServlet{
             Event event = new Event();
             SequenceFlow sequenceFlow = new SequenceFlow();
             ProcessElement processElement = new ProcessElement();
+
+
             for(int startEvent: startEvents) {
                 out.println("StartEvent " + startEvent);
                 out.println("<table border=\"1\">");

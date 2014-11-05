@@ -33,15 +33,22 @@ public class Task {
     }
     public Boolean completeActivity(int id){
         if(!enabledTask.contains(id))return false;
+        ArrayList<Integer> List = this.getReferenceList(id);
+        for(int element: List){
+            if(enabledTask.contains(element)){
+                this.updateTasks(element);
+
+            }
+        }
+        this.updateTasks(id);
+        return true;
+    }
+
+    private void updateTasks(int id){
         completedTask.add(id);
-        //this.addReferenceToCompletedTask(id);
-        int processElement = sequenceFlow.getNextProcessElement(id);
         enabledTask.removeFirstOccurrence(id);
+        int processElement = sequenceFlow.getNextProcessElement(id);
         enabledTask.add(processElement);
-
-      //  this.addReferenceToEnabledTask(processElement);
-
-
         //prove if there is an EndEvent
         if ((this.processElement.getProcessElementType(processElement)).equals("Event") && (event.getEventType(processElement)).equals("End")){
             ArrayList<Integer> allElements = this.processElement.getAllProcessElementIDByFragmentID(this.processElement.getFragmentID(processElement));
@@ -52,8 +59,8 @@ public class Task {
                 }
             }
         }
-        return true;
     }
+
 
 
     private void addReferenceToCompletedTask(int id){

@@ -1,8 +1,3 @@
-
-/**
- * Created by Jani on 05.11.2014.
- */
-
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,7 +5,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 public class Seed {
-
 
     public void getDBcontent(){
 

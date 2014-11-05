@@ -32,11 +32,17 @@ public class JComparser {
 			System.out.println("Root Element:"
 					+ doc.getDocumentElement().getNodeName());
 			fillTables(doc, jHandler);
-		} catch (ParserConfigurationException | SAXException | IOException e) {
+		} catch (ParserConfigurationException e) {
+			// TODO Auto-generated catch block
+			printErrorMessage(e);
+		} catch (SAXException e) {
+			// TODO Auto-generated catch block
+			printErrorMessage(e);
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			printErrorMessage(e);
 		}
-	}
+    }
 
 	private static void fillTables(Document doc, JDBCHandler jHandler) {
 		// TODO Auto-generated method stub

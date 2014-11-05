@@ -15,8 +15,10 @@ import java.util.ArrayList;
  */
 public class PlayScenario extends HttpServlet{
         Task task;
+        Data data;
     public void init() throws ServletException{
         task = new Task();
+        data = new Data();
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -40,6 +42,9 @@ public class PlayScenario extends HttpServlet{
             //Get scenario data
             int id = Integer.parseInt(request.getParameter("id"));
             task.init(id);
+            data.init(id);
+
+
             if(!(request.getParameter("todo") == null) && this.isInt(request.getParameter("todo"))){
                 int todo = Integer.parseInt(request.getParameter("todo"));
                 if(task.completeActivity(todo)){

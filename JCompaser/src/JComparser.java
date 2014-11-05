@@ -1,15 +1,39 @@
 import java.io.File;
 import java.io.IOException;
 
+import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
+
+// open & read file
+import java.io.IOException;
+import java.io.File;
+//something else
+import java.util.List;
+import java.util.Iterator;
+// Java XML Parser
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-
+// DOM
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
-public class JComparser {
+@WebServlet("/UploadServlet")
+@MultipartConfig(fileSizeThreshold=1024*1024*2,	// 2MB
+        maxFileSize=1024*1024*10,		// 10MB
+        maxRequestSize=1024*1024*50)	// 50MB
 
+public class JComparser {
+    /* read the XML file, parse it and wrap it up for engine use and write it to DB */
+
+    /* @TODO: do we want a webbased application -> makes sense
+             therefor we need a webform in order to upload the file
+     */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 			JDBCHandler jHandler = new JDBCHandler();
@@ -117,4 +141,7 @@ public class JComparser {
 			e.printStackTrace();
 		}
 	}
+
+
+
 }

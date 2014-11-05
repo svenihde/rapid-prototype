@@ -1,7 +1,4 @@
-/**
- * Created by Jani on 04.11.2014.
- */
-package org.kodejava.example.commons.fileupload;
+package org.apache.commons.fileupload.servlet;
 
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.fileupload.FileItemFactory;
@@ -13,22 +10,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.ServletException;
-import java.io.IOException;
+
 import java.io.File;
-import java.util.List;
+import java.io.IOException;
 import java.util.Iterator;
+import java.util.List;
 
-public class main {
-    /* read the XML file, parse it and wrap it up for engine use and write it to DB */
-
-    /* @TODO: do we want a webbased application -> makes sense
-             therefor we need a webform in order to upload the file
-     */
-
-    FileUploadDemoServlet;
-}
-
-
+/**
+ * Created by Jani on 05.11.2014.
+ */
 public class FileUploadDemoServlet extends HttpServlet {
     private static final long serialVersionUID = -3208409086358916855L;
 

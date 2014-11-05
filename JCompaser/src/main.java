@@ -24,6 +24,8 @@ public class main {
     /* @TODO: do we want a webbased application -> makes sense
              therefor we need a webform in order to upload the file
      */
+
+    FileUploadDemoServlet;
 }
 
 

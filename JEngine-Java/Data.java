@@ -4,10 +4,14 @@ import java.util.HashMap;
 /**
  * Created by jaspar.mang on 05.11.14.
  */
+
 public class Data {
     public HashMap<Integer, HashMap<Integer, String>> data;
     private DataObject dataObject;
 
+    public Data(){
+        data = new HashMap<Integer, HashMap<Integer, String>>();
+    }
     public void init (int scenario_id){
         if (data.containsKey(scenario_id)) {
             data.put(scenario_id, new HashMap<Integer, String>());
@@ -25,6 +29,9 @@ public class Data {
         return true;
     }
 
-
+    public static void main(String[] args){
+        Data test = new Data();
+        test.init(1);
+    }
 
 }

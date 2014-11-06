@@ -53,7 +53,7 @@ public class Task {
         if ((this.processElement.getProcessElementType(processElement)).equals("Event") && (event.getEventType(processElement)).equals("End")){
             ArrayList<Integer> allElements = this.processElement.getAllProcessElementIDByFragmentID(this.processElement.getFragmentID(processElement));
             for(Integer element: allElements){
-                completedTask.removeFirstOccurrence(element);
+                while(completedTask.contains(element)) completedTask.removeFirstOccurrence(element);
                 if ((this.processElement.getProcessElementType(element)).equals("Event") && (event.getEventType(element)).equals("Start")){
                     enabledTask.add(sequenceFlow.getNextProcessElement(element));
                 }
@@ -62,16 +62,6 @@ public class Task {
     }
 
 
-
-    private void addReferenceToCompletedTask(int id){
-        ArrayList<Integer> List = this.getReferenceList(id);
-        for(int element: List){
-            enabledTask.remove(new Integer(element));
-            if(!completedTask.contains(element)){
-                completedTask.add(element);
-            }
-        }
-    }
 
     public void addReferenceToEnabledTask(int id){
         ArrayList<Integer> List = this.getReferenceList(id);

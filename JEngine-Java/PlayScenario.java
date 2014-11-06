@@ -42,7 +42,7 @@ public class PlayScenario extends HttpServlet{
             //Get scenario data
             int id = Integer.parseInt(request.getParameter("id"));
             task.init(id);
-            data.init(id);
+            //data.init(id);
 
 
             if(!(request.getParameter("todo") == null) && this.isInt(request.getParameter("todo"))){

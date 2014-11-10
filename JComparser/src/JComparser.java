@@ -23,7 +23,7 @@ public class JComparser {
 	public static void main(String[] args) {
 
 		// TODO Auto-generated method stub
-		//JDBCHandler jHandler = new JDBCHandler();
+		//Connector jHandler = new Connector();
 		try {
 			File BPMNXML = new File("./" + args[1]);
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory

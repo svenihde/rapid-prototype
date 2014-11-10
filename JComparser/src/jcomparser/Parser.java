@@ -75,17 +75,26 @@ public class Parser {
 	}
 
 	private static void fillScenario(Document doc, jcomparser.Connector jHandler) {
-		NodeList nList = doc.getElementsByTagName("Scenario");
-		if(nList.getLength() != 0) System.out.println("Scenarios detected"); 
-		else System.out.println("No Scenarios found");
-		for(int i = 0; i < nList.getLength(); i++){
-			Node nNode = nList.item(i);
-			Element eElement = (Element) nNode;
-			String name = eElement.getElementsByTagName("name").item(0).getTextContent();
-			String ter = eElement.getElementsByTagName("terminationCondition").item(0).getTextContent();
-			System.out.println(eElement.getElementsByTagName("name").item(0).getTextContent());
-			System.out.println(ter);
-			jHandler.insertScenarioIntoDatabase(name, ter);
+		NodeList nList = doc.getElementsByTagName("termination");
+		if (nList.getLength() != 0)
+			System.out.println("\nScenarios detected");
+		else
+			System.out.println("No Scenarios found");
+		for (int i = 0; i < nList.getLength(); i++) {
+			Node nTer = nList.item(i);
+			Element eTerElement = (Element) nTer;
+			NodeList nListCondition = eTerElement.getElementsByTagName("dataObject");
+			for (int j = 0; j < nListCondition.getLength(); j++) {
+				Node nCondition = nListCondition.item(j);
+				Element eConElement = (Element) nCondition;
+				// String name =
+				// eElement.getElementsByTagName("name").item(0).getTextContent();
+				String ter = eConElement.getAttribute("name")
+						+ " muss im Zustand " + eConElement.getAttribute("state")+ " sein.";
+				// System.out.println(eElement.getElementsByTagName("name").item(0).getTextContent());
+				System.out.println(ter);
+				jHandler.insertScenarioIntoDatabase("name", ter);
+			}
 		}
 	}
 
@@ -119,15 +128,25 @@ public class Parser {
 	}
 
 	private static void fillEvent(Document doc, jcomparser.Connector jHandler) {
-		NodeList nList = doc.getElementsByTagName("Event");
-		if(nList.getLength() != 0) System.out.println("Events detected"); 
-		else System.out.println("No Events found");
-		for(int i = 0; i < nList.getLength(); i++){
-			Node nNode = nList.item(i);
-			System.out.println("\nEvent: " + nNode.getNodeName());
+		NodeList nListA = doc.getElementsByTagName("startEvent");
+		NodeList nListE = doc.getElementsByTagName("endEvent");
+		if (nListA.getLength() != 0 || nListE.getLength() != 0)
+			System.out.println("\nEvents detected");
+		else
+			System.out.println("No Events found");
+		for (int i = 0; i < nListA.getLength(); i++) {
+			Node nNode = nListA.item(i);
+			System.out.println("Event: " + nNode.getNodeName());
 			Element eElement = (Element) nNode;
-			System.out.println(eElement.getTextContent());
-			jHandler.insertEventIntoDatabase(eElement.getTextContent());
+			System.out.println(eElement.getAttribute("name"));
+			jHandler.insertEventIntoDatabase("Start");
+		}
+		for (int i = 0; i < nListE.getLength(); i++) {
+			Node nNode = nListE.item(i);
+			System.out.println("Event: " + nNode.getNodeName());
+			Element eElement = (Element) nNode;
+			System.out.println(eElement.getAttribute("name"));
+			jHandler.insertEventIntoDatabase("End");
 		}
 	}
 
@@ -141,15 +160,18 @@ public class Parser {
 
 	private static void filluserTask(Document doc, jcomparser.Connector jHandler) {
 		NodeList nList = doc.getElementsByTagName("userTask");
-		if(nList.getLength() != 0) System.out.println("Activities detected"); 
-		else System.out.println("No Activities found");
-		for(int i = 0; i < nList.getLength(); i++){
+		if (nList.getLength() != 0)
+			System.out.println("\nActivities detected");
+		else
+			System.out.println("No Activities found");
+		for (int i = 0; i < nList.getLength(); i++) {
 			Node nNode = nList.item(i);
 			System.out.println("userTask: " + nNode.getNodeName());
 			Element eElement = (Element) nNode;
 			System.out.println(eElement.getAttribute("name"));
 			jHandler.insertActivityIntoDatabase(eElement.getAttribute("name"));
 		}
+
 	}
 
 	private static void printErrorMessage(Exception e) {

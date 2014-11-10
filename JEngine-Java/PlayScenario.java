@@ -1,3 +1,5 @@
+//package rapid-prototype.JEngine-Java;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -5,16 +7,19 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.*;
-import java.util.ArrayList;
+import java.util.LinkedList;
 
 
 /**
  * Created by jaspar.mang on 04.11.14.
  */
 public class PlayScenario extends HttpServlet{
+        Data data;
         Task task;
+
     public void init() throws ServletException{
-        task = new Task();
+        data = new Data();
+        task = new Task(data);
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -38,6 +43,9 @@ public class PlayScenario extends HttpServlet{
             //Get scenario data
             int id = Integer.parseInt(request.getParameter("id"));
             task.init(id);
+            data.init(id);
+
+
             if(!(request.getParameter("todo") == null) && this.isInt(request.getParameter("todo"))){
                 int todo = Integer.parseInt(request.getParameter("todo"));
                 if(task.completeActivity(todo)){
@@ -49,7 +57,7 @@ public class PlayScenario extends HttpServlet{
 
             out.println("<h1> Szenario " + id + ": "+scenario.getScenarioNameByID(id)+"</h1>");
             Fragment fragment = new Fragment();
-            ArrayList<Integer> startEvents = fragment.getAllStartEventIDByScenarioID(id);
+            LinkedList<Integer> startEvents = fragment.getAllStartEventIDByScenarioID(id);
             out.println("Anzahl Start Events :"+startEvents.size()+"<br><br>");
 
             Activity activity = new Activity();
@@ -88,6 +96,23 @@ public class PlayScenario extends HttpServlet{
                 out.println("</table>");
                 out.println("<br>");
             }
+            out.println("</table>");
+            out.println("<br>");
+            DataObject dataObject = new DataObject();
+            LinkedList<Integer> dataObjectIDs = dataObject.getAllDataObejctBy(id);
+            out.println("<table border=\"1\">");
+            out.println("<tr>");
+            out.println("<th>Datenobjekt ID</th>");
+            out.println("<th>Datenobjekt State</th>");
+            out.println("</tr>");
+            for(int dataObjectID: dataObjectIDs){
+                out.println("<tr>");
+                out.println("<td>" + dataObjectID + "</td>");
+                out.println("<td>" + data.getState(id, dataObjectID) + "</td>");
+                out.println("</tr>");
+            }
+            out.println("</table>");
+
         }
         //end BODY + HTML
         out.println("</body>");
@@ -111,10 +136,34 @@ public class PlayScenario extends HttpServlet{
     }
 
     public static void main(String[] args){
-        Fragment fragment = new Fragment();
-        ArrayList<Integer> startEvents = fragment.getAllStartEventIDByScenarioID(1);
-        Activity activity = new Activity();
-        ArrayList<String> activitys = activity.getAllActivityNameByFragmentID(1);
+        Data data = new Data();
+        Task task = new Task(data);
+        data.init(1);
+        task.init(1);
+        System.out.println("enabledTasks");
+        for(int t : task.enabledTask) System.out.println("ID: " + t);
+        System.out.println("completedTaks");
+        for(int t : task.completedTask) System.out.println("ID :" + t);
+        task.completeActivity(8);
+        System.out.println("Complete Aktivität 8");
+        System.out.println("enabledTasks");
+        for(int t : task.enabledTask) System.out.println("ID: " + t);
+        System.out.println("completedTaks");
+        for(int t : task.completedTask) System.out.println("ID :" + t);
+        System.out.println("Complete Aktivität 9");
+        task.completeActivity(9);
+        System.out.println("enabledTasks");
+        for(int t : task.enabledTask) System.out.println("ID: " + t);
+        System.out.println("completedTaks");
+        for(int t : task.completedTask) System.out.println("ID :" + t);
+        System.out.println("Complete Aktivität 2");
+        task.completeActivity(2);
+        System.out.println("enabledTasks");
+        for(int t : task.enabledTask) System.out.println("ID: " + t);
+        System.out.println("completedTaks");
+        for(int t : task.completedTask) System.out.println("ID :" + t);
+
+
     }
 
 

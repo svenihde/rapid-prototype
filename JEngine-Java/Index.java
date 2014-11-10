@@ -4,7 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
+import java.util.LinkedList;
 
 
 /**
@@ -32,8 +32,8 @@ public class Index extends HttpServlet{
 
         //Get scenario data
         Scenario scenario = new Scenario();
-        ArrayList<Integer> ids = scenario.getAllScenariosId();
-        ArrayList<String> names = scenario.getAllScenariosName();
+        LinkedList<Integer> ids = scenario.getAllScenariosId();
+        LinkedList<String> names = scenario.getAllScenariosName();
 
 
 
@@ -63,8 +63,8 @@ public class Index extends HttpServlet{
     }
     public static void main(String[] args){
         Scenario scenario = new Scenario();
-        ArrayList<Integer> ids = scenario.getAllScenariosId();
-        ArrayList<String> names = scenario.getAllScenariosName();
+        LinkedList<Integer> ids = scenario.getAllScenariosId();
+        LinkedList<String> names = scenario.getAllScenariosName();
 
 
 

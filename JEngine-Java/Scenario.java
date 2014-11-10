@@ -1,5 +1,5 @@
 import java.sql.*;
-import java.util.ArrayList;
+import java.util.LinkedList;
 
 /**
  * Created by jaspar.mang on 04.11.14.
@@ -36,12 +36,12 @@ public class Scenario {
         return conn;
     }
 
-    public ArrayList<Integer> getAllScenariosId() {
+    public LinkedList<Integer> getAllScenariosId() {
         Connection conn = this.connect();
 
         Statement stmt = null;
         ResultSet rs = null;
-        ArrayList<Integer> results = new ArrayList<Integer>();
+        LinkedList<Integer> results = new LinkedList<Integer>();
         if (conn == null) return results;
 
         try {
@@ -80,11 +80,11 @@ public class Scenario {
         return results;
     }
 
-    public ArrayList<String> getAllScenariosName() {
+    public LinkedList<String> getAllScenariosName() {
         Connection conn = this.connect();
         Statement stmt = null;
         ResultSet rs = null;
-        ArrayList<String> results = new ArrayList<String>();
+        LinkedList<String> results = new LinkedList<String>();
         if (conn == null) return results;
 
         try {

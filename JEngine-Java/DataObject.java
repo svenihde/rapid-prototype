@@ -4,7 +4,7 @@ import java.util.LinkedList;
 /**
  * Created by jaspar.mang on 05.11.14.
  */
-public class Reference {
+public class DataObject {
     // JDBC driver name and database URL
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
     static final String DB_URL = "jdbc:mysql://localhost:3306/JEngine";
@@ -25,17 +25,18 @@ public class Reference {
 
         } catch (SQLException se) {
             //Handle errors for JDBC
-
+            System.out.println("hier");
             se.printStackTrace();
         } catch (Exception e) {
             //Handle errors for Class.forName
+            System.out.println("da");
 
             e.printStackTrace();
         }
         return conn;
     }
 
-    public LinkedList<Integer> getReference(int id) {
+    public LinkedList<Integer> getAllDataObejctBy(int id) {
         Connection conn = this.connect();
 
         Statement stmt = null;
@@ -46,23 +47,11 @@ public class Reference {
         try {
             //Execute a query
             stmt = conn.createStatement();
-            String sql = "SELECT processElement_id2 FROM Reference WHERE processElement_id1=" + id;
+            String sql = "SELECT id FROM dataObject WHERE scenario_id = " + id + " ORDER BY id";
 
             rs = stmt.executeQuery(sql);
-            while(rs.next()) {
-                if (!results.contains(rs.getInt("processElement_id2"))) {
-                    results.add(rs.getInt("processElement_id2"));
-                }
-            }
-
-            stmt = conn.createStatement();
-            sql = "SELECT processElement_id1 FROM Reference WHERE processElement_id2=" + id;
-
-            rs = stmt.executeQuery(sql);
-            while(rs.next()) {
-                if (!results.contains(rs.getInt("processElement_id1"))){
-                    results.add(rs.getInt("processElement_id1"));
-                }
+            while (rs.next()) {
+                results.add(rs.getInt("id"));
             }
 
             //Clean-up environment

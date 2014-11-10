@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Connector {
+
     /* @TODO: how to handle duplicated entry errors? */
 
     // JDBC driver name and database URL
@@ -35,5 +36,17 @@ public class Connector {
             e.printStackTrace();
         }
         return conn;
+    }
+
+    public void insertScenarioIntoDatabase(String name, String ter) {
+    }
+
+    public void insertGatewayIntoDatabase(String textContent) {
+    }
+
+    public void insertEventIntoDatabase(String textContent) {
+    }
+
+    public void insertActivityIntoDatabase(String name) {
     }
 }

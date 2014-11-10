@@ -1,9 +1,11 @@
-package jcompaser;
+package jcomparser;
 
 import com.sun.org.apache.xerces.internal.parsers.DOMParser;
+import org.apache.commons.fileupload.FileItem;
 import org.w3c.dom.NamedNodeMap;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -15,12 +17,16 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import java.io.PrintWriter;
+import java.util.List;
+
 public class Parser {
 	/* parse the XML File */
-	parsePCM() {
-		JDBCHandler jHandler = new JDBCHandler();
+	public static void parsePCM(List pcm, Connector jHandler) {
 		try {
-			File BPMNXML = new File("PCM.xml");
+            System.out.println(pcm.get(0));
+            /* hand over uplaoded file to BPMXML */
+			File BPMNXML = new File("");
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory
 					.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -29,13 +35,15 @@ public class Parser {
 			System.out.println("Root Element:"
 					+ doc.getDocumentElement().getNodeName());
 			fillTables(doc, jHandler);
-		} catch (ParserConfigurationException | SAXException | IOException e) {
-			// TODO Auto-generated catch block
+		} catch (ParserConfigurationException e) {
+			printErrorMessage(e);
+		} catch (SAXException e) {
+			printErrorMessage(e);
+		} catch (IOException e) {
 			printErrorMessage(e);
 		}
-	}
-	private static void fillTables(Document doc, JDBCHandler jHandler) {
-		// TODO Auto-generated method stub
+    }
+	private static void fillTables(Document doc, jcomparser.Connector jHandler) {
 		filluserTask(doc, jHandler);
 		fillAssociation(doc, jHandler);
 		fillDataObject(doc, jHandler);
@@ -50,8 +58,7 @@ public class Parser {
 		fillSet(doc, jHandler);
 	}
 
-	private static void fillSet(Document doc, JDBCHandler jHandler) {
-		// TODO Auto-generated method stub
+	private static void fillSet(Document doc, jcomparser.Connector jHandler) {
 		/* use doc to get the wanted elements & their attributes
 		 * then use jHandler to call JDBC functions to put this information into database
 		 * return
@@ -61,15 +68,13 @@ public class Parser {
 		
 	}
 
-	private static void fillSequenceflow(Document doc, JDBCHandler jHandler) {
-		// TODO Auto-generated method stub
+	private static void fillSequenceflow(Document doc, jcomparser.Connector jHandler) {
 		System.out.println("2nd");
 		return;
 		
 	}
 
-	private static void fillScenario(Document doc, JDBCHandler jHandler) {
-		// TODO Auto-generated method stub
+	private static void fillScenario(Document doc, jcomparser.Connector jHandler) {
 		NodeList nList = doc.getElementsByTagName("Scenario");
 		if(nList.getLength() != 0) System.out.println("Scenarios detected"); 
 		else System.out.println("No Scenarios found");
@@ -84,23 +89,19 @@ public class Parser {
 		}
 	}
 
-	private static void fillReference(Document doc, JDBCHandler jHandler) {
-		// TODO Auto-generated method stub
+	private static void fillReference(Document doc, jcomparser.Connector jHandler) {
 		
 	}
 
-	private static void fillProcessElement(Document doc, JDBCHandler jHandler) {
-		// TODO Auto-generated method stub
+	private static void fillProcessElement(Document doc, jcomparser.Connector jHandler) {
 		
 	}
 
-	private static void fillGatewayRule(Document doc, JDBCHandler jHandler) {
-		// TODO Auto-generated method stub
+	private static void fillGatewayRule(Document doc, jcomparser.Connector jHandler) {
 		
 	}
 
-	private static void fillGateway(Document doc, JDBCHandler jHandler) {
-		// TODO Auto-generated method stub
+	private static void fillGateway(Document doc, jcomparser.Connector jHandler) {
 		NodeList nList = doc.getElementsByTagName("Gateway");
 		if(nList.getLength() != 0) System.out.println("Gateways detected"); 
 		else System.out.println("No Gateways found");
@@ -113,13 +114,11 @@ public class Parser {
 		}
 	}
 
-	private static void fillFragment(Document doc, JDBCHandler jHandler) {
-		// TODO Auto-generated method stub
+	private static void fillFragment(Document doc, jcomparser.Connector jHandler) {
 		
 	}
 
-	private static void fillEvent(Document doc, JDBCHandler jHandler) {
-		// TODO Auto-generated method stub
+	private static void fillEvent(Document doc, jcomparser.Connector jHandler) {
 		NodeList nList = doc.getElementsByTagName("Event");
 		if(nList.getLength() != 0) System.out.println("Events detected"); 
 		else System.out.println("No Events found");
@@ -132,18 +131,15 @@ public class Parser {
 		}
 	}
 
-	private static void fillDataObject(Document doc, JDBCHandler jHandler) {
-		// TODO Auto-generated method stub
+	private static void fillDataObject(Document doc, jcomparser.Connector jHandler) {
 		
 	}
 
-	private static void fillAssociation(Document doc, JDBCHandler jHandler) {
-		// TODO Auto-generated method stub
+	private static void fillAssociation(Document doc, jcomparser.Connector jHandler) {
 		
 	}
 
-	private static void filluserTask(Document doc, JDBCHandler jHandler) {
-		// TODO Auto-generated method stub
+	private static void filluserTask(Document doc, jcomparser.Connector jHandler) {
 		NodeList nList = doc.getElementsByTagName("userTask");
 		if(nList.getLength() != 0) System.out.println("Activities detected"); 
 		else System.out.println("No Activities found");
@@ -157,7 +153,6 @@ public class Parser {
 	}
 
 	private static void printErrorMessage(Exception e) {
-		// TODO Auto-generated method stub
 		if (e.getClass().equals(ParserConfigurationException.class)) {
 			System.out.println("no valid xml");
 		} else if (e.getClass().equals(SAXException.class)) {

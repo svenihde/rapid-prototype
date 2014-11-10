@@ -18,8 +18,8 @@ public class Seed {
     }
 
     public ArrayList<Integer> getAllActivityIDByFragmentID(int id) {
-        JDBCHandler connect;
-        Connection conn = JDBCHandler.connect();
+        jcomparser.Connector connect;
+        Connection conn = jcomparser.Connector.connect();
 
         Statement stmt = null;
         ResultSet rs = null;

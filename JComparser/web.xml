@@ -3,8 +3,8 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
 
     <servlet>
-        <servlet-name>TestServlet</servlet-name>
-        <servlet-class>jcompaser.FileUpload</servlet-class>
+        <servlet-name>FileUpload</servlet-name>
+        <servlet-class>jcomparser.FileUpload</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>upload</servlet-name>
@@ -17,7 +17,7 @@
     </servlet-mapping>
 
     <servlet-mapping>
-        <servlet-name>TestServlet</servlet-name>
-        <url-pattern>/test</url-pattern>
+        <servlet-name>FileUpload</servlet-name>
+        <url-pattern>/done</url-pattern>
     </servlet-mapping>
 </web-app>

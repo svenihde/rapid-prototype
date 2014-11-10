@@ -1,4 +1,4 @@
-package jcompaser;
+package jcomparser;
 import java.sql.*;
 import java.util.ArrayList;
 

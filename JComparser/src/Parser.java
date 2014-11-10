@@ -1,5 +1,8 @@
+<<<<<<< HEAD:JCompaser/src/Parser.java
 package jcompaser;
 
+=======
+package jcomparser;
 import com.sun.org.apache.xerces.internal.parsers.DOMParser;
 import org.w3c.dom.NamedNodeMap;
 import java.io.File;

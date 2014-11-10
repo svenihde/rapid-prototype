@@ -1,4 +1,4 @@
-package jcompaser;
+package jcomparser;
 // open & read file
 import java.io.IOException;
 import java.io.File;

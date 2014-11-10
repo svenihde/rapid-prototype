@@ -1,6 +1,4 @@
-/**
- * Created by Jani on 04.11.2014.
- */
+package jcompaser;
 import com.sun.org.apache.xerces.internal.parsers.DOMParser;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;

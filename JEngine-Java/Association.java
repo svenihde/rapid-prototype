@@ -1,5 +1,5 @@
 import java.sql.*;
-import java.util.ArrayList;
+import java.util.LinkedList;
 
 /**
  * Created by jaspar.mang on 05.11.14.
@@ -36,18 +36,19 @@ public class Association {
         return conn;
     }
 
-    public ArrayList<Integer> getDataObjectIDByProcessElementID(int id) {
+    // get all
+    public LinkedList<Integer> getDataObjectIDByProcessElementID(int id) {
         Connection conn = this.connect();
 
         Statement stmt = null;
         ResultSet rs = null;
-        ArrayList<Integer> results = new ArrayList<Integer>();
+        LinkedList<Integer> results = new LinkedList<Integer>();
         if (conn == null) return results;
 
         try {
             //Execute a query
             stmt = conn.createStatement();
-            String sql = "SELECT dataObject_id FROM Association WHERE processElement_id = " + id + " ORDER BY id";
+            String sql = "SELECT dataObject_id FROM Association WHERE processElement_id = " + id + " ORDER BY dataObject_id, processElement_id, state";
 
             rs = stmt.executeQuery(sql);
             while (rs.next()) {
@@ -79,18 +80,19 @@ public class Association {
 
         return results;
     }
-    public ArrayList<String> getDataObjectStateByProcessElementID(int id) {
+
+    public LinkedList<String> getDataObjectStateByProcessElementID(int id) {
         Connection conn = this.connect();
 
         Statement stmt = null;
         ResultSet rs = null;
-        ArrayList<String> results = new ArrayList<String>();
+        LinkedList<String> results = new LinkedList<String>();
         if (conn == null) return results;
 
         try {
             //Execute a query
             stmt = conn.createStatement();
-            String sql = "SELECT state FROM Association WHERE processElement_id = " + id + " ORDER BY id";
+            String sql = "SELECT state FROM Association WHERE processElement_id = " + id + " ORDER BY dataObject_id, processElement_id, state";
 
             rs = stmt.executeQuery(sql);
             while (rs.next()) {
@@ -122,22 +124,156 @@ public class Association {
 
         return results;
     }
-    public ArrayList<String> getDirectionByProcessElementID(int id) {
+
+    public LinkedList<Boolean> getDirectionByProcessElementID(int id) {
         Connection conn = this.connect();
 
         Statement stmt = null;
         ResultSet rs = null;
-        ArrayList<String> results = new ArrayList<String>();
+        LinkedList<Boolean> results = new LinkedList<Boolean>();
         if (conn == null) return results;
 
         try {
             //Execute a query
             stmt = conn.createStatement();
-            String sql = "SELECT direction FROM Association WHERE processElement_id = " + id + " ORDER BY id";
+            String sql = "SELECT direction FROM Association WHERE processElement_id = " + id + " ORDER BY dataObject_id, processElement_id, state";
 
             rs = stmt.executeQuery(sql);
             while (rs.next()) {
-                results.add(rs.getString("direction"));
+                results.add(rs.getBoolean("direction"));
+            }
+
+            //Clean-up environment
+            rs.close();
+            stmt.close();
+            conn.close();
+
+        } catch (SQLException se) {
+            //Handle errors for JDBC
+            se.printStackTrace();
+        } finally {
+            //finally block used to close resources
+            try {
+                if (stmt != null)
+                    stmt.close();
+            } catch (SQLException se2) {
+            }// nothing we can do
+            try {
+                if (conn != null)
+                    conn.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+        }
+
+        return results;
+    }
+
+    //get Inputs
+    public LinkedList<Integer> getInDataObjectIDByProcessElementID(int id) {
+        Connection conn = this.connect();
+
+        Statement stmt = null;
+        ResultSet rs = null;
+        LinkedList<Integer> results = new LinkedList<Integer>();
+        if (conn == null) return results;
+
+        try {
+            //Execute a query
+            stmt = conn.createStatement();
+            String sql = "SELECT dataObject_id FROM Association WHERE direction = true AND processElement_id = " + id + " ORDER BY dataObject_id, processElement_id, state";
+
+            rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                results.add(rs.getInt("dataObject_id"));
+            }
+
+            //Clean-up environment
+            rs.close();
+            stmt.close();
+            conn.close();
+
+        } catch (SQLException se) {
+            //Handle errors for JDBC
+            se.printStackTrace();
+        } finally {
+            //finally block used to close resources
+            try {
+                if (stmt != null)
+                    stmt.close();
+            } catch (SQLException se2) {
+            }// nothing we can do
+            try {
+                if (conn != null)
+                    conn.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+        }
+
+        return results;
+    }
+
+    public LinkedList<String> getInDataObjectStateByProcessElementID(int id) {
+        Connection conn = this.connect();
+
+        Statement stmt = null;
+        ResultSet rs = null;
+        LinkedList<String> results = new LinkedList<String>();
+        if (conn == null) return results;
+
+        try {
+            //Execute a query
+            stmt = conn.createStatement();
+            String sql = "SELECT state FROM Association WHERE direction = true AND processElement_id = " + id + " ORDER BY dataObject_id, processElement_id, state";
+
+            rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                results.add(rs.getString("state"));
+            }
+
+            //Clean-up environment
+            rs.close();
+            stmt.close();
+            conn.close();
+
+        } catch (SQLException se) {
+            //Handle errors for JDBC
+            se.printStackTrace();
+        } finally {
+            //finally block used to close resources
+            try {
+                if (stmt != null)
+                    stmt.close();
+            } catch (SQLException se2) {
+            }// nothing we can do
+            try {
+                if (conn != null)
+                    conn.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+        }
+
+        return results;
+    }
+
+    public LinkedList<Boolean> getInDirectionByProcessElementID(int id) {
+        Connection conn = this.connect();
+
+        Statement stmt = null;
+        ResultSet rs = null;
+        LinkedList<Boolean> results = new LinkedList<Boolean>();
+        if (conn == null) return results;
+
+        try {
+            //Execute a query
+            stmt = conn.createStatement();
+            String sql = "SELECT direction FROM Association WHERE direction = true AND processElement_id = " + id + " ORDER BY dataObject_id, processElement_id, state";
+
+            rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                results.add(rs.getBoolean("direction"));
             }
 
             //Clean-up environment

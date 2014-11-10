@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.HashMap;
 
 /**
@@ -13,14 +13,18 @@ public class Data {
         data = new HashMap<Integer, HashMap<Integer, String>>();
     }
     public void init (int scenario_id){
-        if (data.containsKey(scenario_id)) {
+        if (!data.containsKey(scenario_id)) {
             data.put(scenario_id, new HashMap<Integer, String>());
             dataObject = new DataObject();
-            ArrayList<Integer> objects = dataObject.getAllDataObejctBy(scenario_id);
+            LinkedList<Integer> objects = dataObject.getAllDataObejctBy(scenario_id);
             for (int object : objects) {
                 data.get(scenario_id).put(object, "Init");
             }
         }
+    }
+
+    public String getState(int scenario_id, int id){
+        return data.get(scenario_id).get(id);
     }
 
     public Boolean setDataState(int scenario_id, int id, String state){

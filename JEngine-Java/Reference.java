@@ -1,5 +1,5 @@
 import java.sql.*;
-import java.util.ArrayList;
+import java.util.LinkedList;
 
 /**
  * Created by jaspar.mang on 05.11.14.
@@ -35,12 +35,12 @@ public class Reference {
         return conn;
     }
 
-    public ArrayList<Integer> getReference(int id) {
+    public LinkedList<Integer> getReference(int id) {
         Connection conn = this.connect();
 
         Statement stmt = null;
         ResultSet rs = null;
-        ArrayList<Integer> results = new ArrayList<Integer>();
+        LinkedList<Integer> results = new LinkedList<Integer>();
         if (conn == null) return results;
 
         try {

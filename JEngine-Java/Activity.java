@@ -1,5 +1,5 @@
 import java.sql.*;
-import java.util.ArrayList;
+import java.util.LinkedList;
 
 /**
  * Created by jaspar.mang on 04.11.14.
@@ -36,12 +36,12 @@ public class Activity {
         return conn;
     }
 
-    public ArrayList<Integer> getAllActivityIDByFragmentID(int id) {
+    public LinkedList<Integer> getAllActivityIDByFragmentID(int id) {
         Connection conn = this.connect();
 
         Statement stmt = null;
         ResultSet rs = null;
-        ArrayList<Integer> results = new ArrayList<Integer>();
+        LinkedList<Integer> results = new LinkedList<Integer>();
         if (conn == null) return results;
 
         try {
@@ -79,12 +79,12 @@ public class Activity {
 
         return results;
     }
-    public ArrayList<Integer> getAllActivityIDByFragmentID(String id) {
+    public LinkedList<Integer> getAllActivityIDByFragmentID(String id) {
         Connection conn = this.connect();
 
         Statement stmt = null;
         ResultSet rs = null;
-        ArrayList<Integer> results = new ArrayList<Integer>();
+        LinkedList<Integer> results = new LinkedList<Integer>();
         if (conn == null) return results;
 
         try {
@@ -122,12 +122,12 @@ public class Activity {
 
         return results;
     }
-    public ArrayList<String> getAllActivityNameByFragmentID(int id) {
+    public LinkedList<String> getAllActivityNameByFragmentID(int id) {
         Connection conn = this.connect();
 
         Statement stmt = null;
         ResultSet rs = null;
-        ArrayList<String> results = new ArrayList<String>();
+        LinkedList<String> results = new LinkedList<String>();
         if (conn == null) return results;
 
         try {
@@ -165,12 +165,12 @@ public class Activity {
 
         return results;
     }
-    public ArrayList<String> getAllActivityNameByFragmentID(String id) {
+    public LinkedList<String> getAllActivityNameByFragmentID(String id) {
         Connection conn = this.connect();
 
         Statement stmt = null;
         ResultSet rs = null;
-        ArrayList<String> results = new ArrayList<String>();
+        LinkedList<String> results = new LinkedList<String>();
         if (conn == null) return results;
 
         try {

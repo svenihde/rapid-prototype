@@ -1,6 +1,6 @@
 
 import java.sql.*;
-import java.util.ArrayList;
+import java.util.LinkedList;
 
 /**
  * Created by jaspar.mang on 04.11.14.
@@ -124,12 +124,12 @@ public class ProcessElement {
         return results;
     }
 
-    public ArrayList<Integer> getAllProcessElementIDByFragmentID(int id) {
+    public LinkedList<Integer> getAllProcessElementIDByFragmentID(int id) {
         Connection conn = this.connect();
 
         Statement stmt = null;
         ResultSet rs = null;
-        ArrayList<Integer> results = new ArrayList<Integer>();
+        LinkedList<Integer> results = new LinkedList<Integer>();
         if (conn == null) return results;
 
         try {
@@ -167,12 +167,12 @@ public class ProcessElement {
 
         return results;
     }
-    public ArrayList<Integer> getAllProcessElementIDByFragmentID(String id) {
+    public LinkedList<Integer> getAllProcessElementIDByFragmentID(String id) {
         Connection conn = this.connect();
 
         Statement stmt = null;
         ResultSet rs = null;
-        ArrayList<Integer> results = new ArrayList<Integer>();
+        LinkedList<Integer> results = new LinkedList<Integer>();
         if (conn == null) return results;
 
         try {

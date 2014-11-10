@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
@@ -12,8 +11,10 @@ public class Task {
     private ProcessElement processElement;
     private Event event;
     private Reference reference;
+    private Data data;
+    private Association association;
 
-    public Task(){
+    public Task(Data d){
         completedTask = new LinkedList<Integer>();
         enabledTask = new LinkedList<Integer>();
         sequenceFlow = new SequenceFlow();
@@ -21,23 +22,47 @@ public class Task {
         processElement = new ProcessElement();
         event = new Event();
         reference = new Reference();
+        association = new Association();
+        data = d;
     }
+
     public void init(int scenarioID){
-        ArrayList<Integer> startEvents = fragment.getAllStartEventIDByScenarioID(scenarioID);
+        LinkedList<Integer> startEvents = fragment.getAllStartEventIDByScenarioID(scenarioID);
         for(int startEvent: startEvents){
             int processElementID = sequenceFlow.getNextProcessElement(startEvent);
             if(!completedTask.contains(processElementID) && !enabledTask.contains(processElementID)) {
-                enabledTask.add(processElementID);
+                if(this.proveAssociation(scenarioID, processElementID)) {
+                    enabledTask.add(processElementID);
+                }
             }
         }
     }
+
+    private Boolean proveAssociation(int scenario_id, int processElementID){
+        LinkedList<Integer> associations = association.getInDataObjectIDByProcessElementID(processElementID);
+        Boolean hasAllObjectsInTheRightState = true;
+        if(!associations.isEmpty()){
+            LinkedList<String> states = association.getInDataObjectStateByProcessElementID(processElementID);
+            //TODO do it better!!!
+            for(int i = 0; i < associations.size(); i++){
+                System.out.println(states.get(i)+" = "+ data.getState(scenario_id, associations.get(i)));
+                if(states.get(i).equals(data.getState(scenario_id, associations.get(i)))){
+                    hasAllObjectsInTheRightState = true;
+                }else{
+                    hasAllObjectsInTheRightState = false;
+                    break;
+                }
+            }
+        }
+        return hasAllObjectsInTheRightState;
+    }
+
     public Boolean completeActivity(int id){
         if(!enabledTask.contains(id))return false;
-        ArrayList<Integer> List = this.getReferenceList(id);
+        LinkedList<Integer> List = this.getReferenceList(id);
         for(int element: List){
             if(enabledTask.contains(element)){
                 this.updateTasks(element);
-
             }
         }
         this.updateTasks(id);
@@ -48,23 +73,36 @@ public class Task {
         completedTask.add(id);
         enabledTask.removeFirstOccurrence(id);
         int processElement = sequenceFlow.getNextProcessElement(id);
-        enabledTask.add(processElement);
+
+        if(this.proveAssociation(this.getScenarioIDByProcessElement(processElement), processElement)) {
+            enabledTask.add(processElement);
+        }
         //prove if there is an EndEvent
         if ((this.processElement.getProcessElementType(processElement)).equals("Event") && (event.getEventType(processElement)).equals("End")){
-            ArrayList<Integer> allElements = this.processElement.getAllProcessElementIDByFragmentID(this.processElement.getFragmentID(processElement));
+            LinkedList<Integer> allElements = this.processElement.getAllProcessElementIDByFragmentID(this.processElement.getFragmentID(processElement));
             for(Integer element: allElements){
                 while(completedTask.contains(element)) completedTask.removeFirstOccurrence(element);
                 if ((this.processElement.getProcessElementType(element)).equals("Event") && (event.getEventType(element)).equals("Start")){
-                    enabledTask.add(sequenceFlow.getNextProcessElement(element));
+                    int nextProcessElement = sequenceFlow.getNextProcessElement(element);
+                    if(this.proveAssociation(this.getScenarioIDByProcessElement(processElement), nextProcessElement)) {
+                        enabledTask.add(nextProcessElement);
+                    }
                 }
             }
         }
     }
 
+    private int getScenarioIDByProcessElement(int id){
+        int scenario_id;
+        int fragment_id = processElement.getFragmentID(id);
+        scenario_id = fragment.getScenarioID(fragment_id);
+        return scenario_id;
+    }
+
 
 
     public void addReferenceToEnabledTask(int id){
-        ArrayList<Integer> List = this.getReferenceList(id);
+        LinkedList<Integer> List = this.getReferenceList(id);
         for(int element: List){
             if(!enabledTask.contains(element)){
                 enabledTask.add(element);
@@ -72,14 +110,14 @@ public class Task {
         }
     }
 
-    private ArrayList<Integer> getReferenceList(int id){
-        ArrayList<Integer> List = new ArrayList<Integer>();
+    private LinkedList<Integer> getReferenceList(int id){
+        LinkedList<Integer> List = new LinkedList<Integer>();
         List.add(id);
         int size = 0;
         while(size != List.size()){
             size = List.size();
             for(int i = 0; i < size; i++) {
-                ArrayList<Integer> newElements = reference.getReference(List.get(i));
+                LinkedList<Integer> newElements = reference.getReference(List.get(i));
                 for (int newElement : newElements) {
                     if (!List.contains(newElement)) {
                         List.add(newElement);
@@ -93,7 +131,8 @@ public class Task {
     }
 
     public static void main(String[] args){
-        Task task = new Task();
+
+        Task task = new Task(new Data());
         task.init(1);
         System.out.println("enabled Task:");
         for(int t: task.enabledTask) System.out.println("task " + t);

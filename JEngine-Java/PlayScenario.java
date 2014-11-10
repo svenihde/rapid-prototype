@@ -7,18 +7,19 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.*;
-import java.util.ArrayList;
+import java.util.LinkedList;
 
 
 /**
  * Created by jaspar.mang on 04.11.14.
  */
 public class PlayScenario extends HttpServlet{
-        Task task;
         Data data;
+        Task task;
+
     public void init() throws ServletException{
-        task = new Task();
         data = new Data();
+        task = new Task(data);
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -56,15 +57,13 @@ public class PlayScenario extends HttpServlet{
 
             out.println("<h1> Szenario " + id + ": "+scenario.getScenarioNameByID(id)+"</h1>");
             Fragment fragment = new Fragment();
-            ArrayList<Integer> startEvents = fragment.getAllStartEventIDByScenarioID(id);
+            LinkedList<Integer> startEvents = fragment.getAllStartEventIDByScenarioID(id);
             out.println("Anzahl Start Events :"+startEvents.size()+"<br><br>");
 
             Activity activity = new Activity();
             Event event = new Event();
             SequenceFlow sequenceFlow = new SequenceFlow();
             ProcessElement processElement = new ProcessElement();
-
-
             for(int startEvent: startEvents) {
                 out.println("StartEvent " + startEvent);
                 out.println("<table border=\"1\">");
@@ -120,10 +119,34 @@ public class PlayScenario extends HttpServlet{
     }
 
     public static void main(String[] args){
-        Fragment fragment = new Fragment();
-        ArrayList<Integer> startEvents = fragment.getAllStartEventIDByScenarioID(1);
-        Activity activity = new Activity();
-        ArrayList<String> activitys = activity.getAllActivityNameByFragmentID(1);
+        Data data = new Data();
+        Task task = new Task(data);
+        data.init(1);
+        task.init(1);
+        System.out.println("enabledTasks");
+        for(int t : task.enabledTask) System.out.println("ID: " + t);
+        System.out.println("completedTaks");
+        for(int t : task.completedTask) System.out.println("ID :" + t);
+        task.completeActivity(8);
+        System.out.println("Complete Aktivität 8");
+        System.out.println("enabledTasks");
+        for(int t : task.enabledTask) System.out.println("ID: " + t);
+        System.out.println("completedTaks");
+        for(int t : task.completedTask) System.out.println("ID :" + t);
+        System.out.println("Complete Aktivität 9");
+        task.completeActivity(9);
+        System.out.println("enabledTasks");
+        for(int t : task.enabledTask) System.out.println("ID: " + t);
+        System.out.println("completedTaks");
+        for(int t : task.completedTask) System.out.println("ID :" + t);
+        System.out.println("Complete Aktivität 2");
+        task.completeActivity(2);
+        System.out.println("enabledTasks");
+        for(int t : task.enabledTask) System.out.println("ID: " + t);
+        System.out.println("completedTaks");
+        for(int t : task.completedTask) System.out.println("ID :" + t);
+
+
     }
 
 

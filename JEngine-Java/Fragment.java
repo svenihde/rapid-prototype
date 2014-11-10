@@ -1,5 +1,5 @@
 import java.sql.*;
-import java.util.ArrayList;
+import java.util.LinkedList;
 
 /**
  * Created by jaspar.mang on 04.11.14.
@@ -36,12 +36,12 @@ public class Fragment {
         return conn;
     }
 
-    public ArrayList<Integer> getAllFragmentId() {
+    public LinkedList<Integer> getAllFragmentId() {
         Connection conn = this.connect();
 
         Statement stmt = null;
         ResultSet rs = null;
-        ArrayList<Integer> results = new ArrayList<Integer>();
+        LinkedList<Integer> results = new LinkedList<Integer>();
         if (conn == null) return results;
 
         try {
@@ -79,12 +79,12 @@ public class Fragment {
 
         return results;
     }
-    public ArrayList<Integer> getAllStartEventIDByScenarioID(int id) {
+    public LinkedList<Integer> getAllStartEventIDByScenarioID(int id) {
         Connection conn = this.connect();
 
         Statement stmt = null;
         ResultSet rs = null;
-        ArrayList<Integer> results = new ArrayList<Integer>();
+        LinkedList<Integer> results = new LinkedList<Integer>();
         if (conn == null) return results;
 
         try {
@@ -122,12 +122,12 @@ public class Fragment {
 
         return results;
     }
-    public ArrayList<Integer> getAllStartEventIDByScenarioID(String id) {
+    public LinkedList<Integer> getAllStartEventIDByScenarioID(String id) {
         Connection conn = this.connect();
 
         Statement stmt = null;
         ResultSet rs = null;
-        ArrayList<Integer> results = new ArrayList<Integer>();
+        LinkedList<Integer> results = new LinkedList<Integer>();
         if (conn == null) return results;
 
         try {
@@ -224,6 +224,50 @@ public class Fragment {
             rs = stmt.executeQuery(sql);
             rs.next();
             results = rs.getInt("start_event_id");
+
+
+            //Clean-up environment
+            rs.close();
+            stmt.close();
+            conn.close();
+
+        } catch (SQLException se) {
+            //Handle errors for JDBC
+            se.printStackTrace();
+        } finally {
+            //finally block used to close resources
+            try {
+                if (stmt != null)
+                    stmt.close();
+            } catch (SQLException se2) {
+            }// nothing we can do
+            try {
+                if (conn != null)
+                    conn.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+        }
+
+        return results;
+    }
+
+    public int getScenarioID(int id) {
+        Connection conn = this.connect();
+
+        Statement stmt = null;
+        ResultSet rs = null;
+        int results = -1;
+        if (conn == null) return results;
+
+        try {
+            //Execute a query
+            stmt = conn.createStatement();
+            String sql = "SELECT scenario_id FROM Fragment WHERE id="+id+" ORDER BY id";
+
+            rs = stmt.executeQuery(sql);
+            rs.next();
+            results = rs.getInt("scenario_id");
 
 
             //Clean-up environment

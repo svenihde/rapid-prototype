@@ -1,5 +1,5 @@
 import java.sql.*;
-import java.util.ArrayList;
+import java.util.LinkedList;
 
 /**
  * Created by jaspar.mang on 05.11.14.
@@ -36,12 +36,12 @@ public class DataObject {
         return conn;
     }
 
-    public ArrayList<Integer> getAllDataObejctBy(int id) {
+    public LinkedList<Integer> getAllDataObejctBy(int id) {
         Connection conn = this.connect();
 
         Statement stmt = null;
         ResultSet rs = null;
-        ArrayList<Integer> results = new ArrayList<Integer>();
+        LinkedList<Integer> results = new LinkedList<Integer>();
         if (conn == null) return results;
 
         try {

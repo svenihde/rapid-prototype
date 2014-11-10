@@ -12,7 +12,6 @@ class TaskController < ApplicationController
 	else
 		completed_tasks = Stages.find_by(user_id: cookies[:cookie_id]).completed	
 	end
-	#Runtime-knowledge: incremental processing accordingly to the id value
 	last_completed_task = completed_tasks.max
 	last_completed_task = last_completed_task.to_i
 	upcoming_task  = last_completed_task + 1

@@ -1,24 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+<web-app id="file-upload" version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
 
     <servlet>
-        <servlet-name>FileUpload</servlet-name>
-        <servlet-class>FileUpload</servlet-class>
+        <servlet-name>TestServlet</servlet-name>
+        <servlet-class>test.TestServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>upload</servlet-name>
+        <jsp-file>/upload.jsp</jsp-file>
+    </servlet>
+
     <servlet-mapping>
-        <servlet-name>FileUpload</servlet-name>
+        <servlet-name>upload</servlet-name>
         <url-pattern>/upload</url-pattern>
     </servlet-mapping>
 
-
-    <session-config>
-        <session-timeout>
-            30
-        </session-timeout>
-    </session-config>
-
-    <welcome-file-list>
-        <welcome-file>index.jsp</welcome-file>
-    </welcome-file-list>
-
+    <servlet-mapping>
+        <servlet-name>TestServlet</servlet-name>
+        <url-pattern>/test</url-pattern>
+    </servlet-mapping>
 </web-app>

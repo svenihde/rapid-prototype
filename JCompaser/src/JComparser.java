@@ -20,11 +20,11 @@ public class JComparser {
              therefor we need a webform in order to upload the file
      */
 	public static void main(String[] args) {
-        //FileUpload f = new FileUpload();
+        FileUpload f = new FileUpload();
 
 		// TODO Auto-generated method stub
-		//	JDBCHandler jHandler = new JDBCHandler();
-		/*try {
+		JDBCHandler jHandler = new JDBCHandler();
+		try {
 			File BPMNXML = new File("./" + args[1]);
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory
 					.newInstance();
@@ -43,9 +43,9 @@ public class JComparser {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			printErrorMessage(e);
-		}*/
+		}
     }
-/*
+
 	private static void fillTables(Document doc, JDBCHandler jHandler) {
 		// TODO Auto-generated method stub
 		fillActivity(doc, jHandler);
@@ -121,7 +121,7 @@ public class JComparser {
 		// TODO Auto-generated method stub
 		
 	}
-*/
+
 	private static void printErrorMessage(Exception e) {
 		// TODO Auto-generated method stub
 		if (e.getClass().equals(ParserConfigurationException.class)) {

@@ -1,29 +1,26 @@
-// open & read file
-import java.io.IOException;
+package jcompaser;
+
+import com.sun.org.apache.xerces.internal.parsers.DOMParser;
+import org.w3c.dom.NamedNodeMap;
 import java.io.File;
-//something else
-import java.util.List;
-import java.util.Iterator;
-// Java XML Parser
+import java.io.IOException;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-// DOM
+
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-
-public class JComparser {
-    /* read the XML file, parse it and wrap it up for engine use and write it to DB */
-
-    /* @TODO: do we want a webbased application -> makes sense
-             therefor we need a webform in order to upload the file
-     */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-			JDBCHandler jHandler = new JDBCHandler();
+public class Parser {
+	/* parse the XML File */
+	parsePCM() {
+		JDBCHandler jHandler = new JDBCHandler();
 		try {
-			File BPMNXML = new File("./" + args[1]);
+			File BPMNXML = new File("PCM.xml");
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory
 					.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -32,21 +29,14 @@ public class JComparser {
 			System.out.println("Root Element:"
 					+ doc.getDocumentElement().getNodeName());
 			fillTables(doc, jHandler);
-		} catch (ParserConfigurationException e) {
-			// TODO Auto-generated catch block
-			printErrorMessage(e);
-		} catch (SAXException e) {
-			// TODO Auto-generated catch block
-			printErrorMessage(e);
-		} catch (IOException e) {
+		} catch (ParserConfigurationException | SAXException | IOException e) {
 			// TODO Auto-generated catch block
 			printErrorMessage(e);
 		}
-    }
-
+	}
 	private static void fillTables(Document doc, JDBCHandler jHandler) {
 		// TODO Auto-generated method stub
-		fillActivity(doc, jHandler);
+		filluserTask(doc, jHandler);
 		fillAssociation(doc, jHandler);
 		fillDataObject(doc, jHandler);
 		fillEvent(doc, jHandler);
@@ -62,17 +52,36 @@ public class JComparser {
 
 	private static void fillSet(Document doc, JDBCHandler jHandler) {
 		// TODO Auto-generated method stub
+		/* use doc to get the wanted elements & their attributes
+		 * then use jHandler to call JDBC functions to put this information into database
+		 * return
+		 */
+		System.out.println("1st");
+		return;
 		
 	}
 
 	private static void fillSequenceflow(Document doc, JDBCHandler jHandler) {
 		// TODO Auto-generated method stub
+		System.out.println("2nd");
+		return;
 		
 	}
 
 	private static void fillScenario(Document doc, JDBCHandler jHandler) {
 		// TODO Auto-generated method stub
-		
+		NodeList nList = doc.getElementsByTagName("Scenario");
+		if(nList.getLength() != 0) System.out.println("Scenarios detected"); 
+		else System.out.println("No Scenarios found");
+		for(int i = 0; i < nList.getLength(); i++){
+			Node nNode = nList.item(i);
+			Element eElement = (Element) nNode;
+			String name = eElement.getElementsByTagName("name").item(0).getTextContent();
+			String ter = eElement.getElementsByTagName("terminationCondition").item(0).getTextContent();
+			System.out.println(eElement.getElementsByTagName("name").item(0).getTextContent());
+			System.out.println(ter);
+			jHandler.insertScenarioIntoDatabase(name, ter);
+		}
 	}
 
 	private static void fillReference(Document doc, JDBCHandler jHandler) {
@@ -92,7 +101,16 @@ public class JComparser {
 
 	private static void fillGateway(Document doc, JDBCHandler jHandler) {
 		// TODO Auto-generated method stub
-		
+		NodeList nList = doc.getElementsByTagName("Gateway");
+		if(nList.getLength() != 0) System.out.println("Gateways detected"); 
+		else System.out.println("No Gateways found");
+		for(int i = 0; i < nList.getLength(); i++){
+			Node nNode = nList.item(i);
+			System.out.println("\nGateway: " + nNode.getNodeName());
+			Element eElement = (Element) nNode;
+			System.out.println(eElement.getTextContent());
+			jHandler.insertGatewayIntoDatabase(eElement.getTextContent());
+		}
 	}
 
 	private static void fillFragment(Document doc, JDBCHandler jHandler) {
@@ -102,7 +120,16 @@ public class JComparser {
 
 	private static void fillEvent(Document doc, JDBCHandler jHandler) {
 		// TODO Auto-generated method stub
-		
+		NodeList nList = doc.getElementsByTagName("Event");
+		if(nList.getLength() != 0) System.out.println("Events detected"); 
+		else System.out.println("No Events found");
+		for(int i = 0; i < nList.getLength(); i++){
+			Node nNode = nList.item(i);
+			System.out.println("\nEvent: " + nNode.getNodeName());
+			Element eElement = (Element) nNode;
+			System.out.println(eElement.getTextContent());
+			jHandler.insertEventIntoDatabase(eElement.getTextContent());
+		}
 	}
 
 	private static void fillDataObject(Document doc, JDBCHandler jHandler) {
@@ -115,9 +142,18 @@ public class JComparser {
 		
 	}
 
-	private static void fillActivity(Document doc, JDBCHandler jHandler) {
+	private static void filluserTask(Document doc, JDBCHandler jHandler) {
 		// TODO Auto-generated method stub
-		
+		NodeList nList = doc.getElementsByTagName("userTask");
+		if(nList.getLength() != 0) System.out.println("Activities detected"); 
+		else System.out.println("No Activities found");
+		for(int i = 0; i < nList.getLength(); i++){
+			Node nNode = nList.item(i);
+			System.out.println("userTask: " + nNode.getNodeName());
+			Element eElement = (Element) nNode;
+			System.out.println(eElement.getAttribute("name"));
+			jHandler.insertActivityIntoDatabase(eElement.getAttribute("name"));
+		}
 	}
 
 	private static void printErrorMessage(Exception e) {

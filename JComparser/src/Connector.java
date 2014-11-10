@@ -1,8 +1,12 @@
+package jcomparser;
 
-import java.sql.*;
-import java.util.ArrayList;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
-public class JDBCHandler {
+public class Connector {
+    /* @TODO: how to handle duplicated entry errors? */
+
     // JDBC driver name and database URL
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
     static final String DB_URL = "jdbc:mysql://localhost:3306/JEngine";
@@ -20,17 +24,16 @@ public class JDBCHandler {
 
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
 
-            } catch (SQLException se) {
-                //Handle errors for JDBC
-                System.out.println("hier");
-                se.printStackTrace();
-            } catch (Exception e) {
-                //Handle errors for Class.forName
-                System.out.println("da");
+        } catch (SQLException se) {
+            //Handle errors for JDBC
+            System.out.println("hier");
+            se.printStackTrace();
+        } catch (Exception e) {
+            //Handle errors for Class.forName
+            System.out.println("da");
 
-                e.printStackTrace();
-            }
-        return conn;
+            e.printStackTrace();
         }
+        return conn;
+    }
 }
-

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<PCM>
+<fragments>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" targetNamespace="http://bpt.hpi.uni-potsdam.de/pcm">
+  <process id="a" name="a">
+    <startEvent id="n1903040583" name="Start">
+      <outgoing>n1903040583-n2141355160</outgoing>
+    </startEvent>
+    <userTask id="n2141355160" name="Test">
+      <incoming>n1903040583-n2141355160</incoming>
+      <outgoing>n2141355160-n2027578507</outgoing>
+    </userTask>
+    <endEvent id="n2027578507" name="Ende">
+      <incoming>n2141355160-n2027578507</incoming>
+    </endEvent>
+    <sequenceFlow id="n1903040583-n2141355160" sourceRef="n1903040583" targetRef="n2141355160"/>
+    <sequenceFlow id="n2141355160-n2027578507" sourceRef="n2141355160" targetRef="n2027578507"/>
+  </process>
+</definitions>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" targetNamespace="http://bpt.hpi.uni-potsdam.de/pcm">
+  <process id="b" name="b">
+    <startEvent id="n1175607551" name="Start2">
+      <outgoing>n1175607551-n104273473</outgoing>
+    </startEvent>
+    <userTask id="n104273473" name="B">
+      <incoming>n1175607551-n104273473</incoming>
+      <outgoing>n104273473-n2141355160</outgoing>
+    </userTask>
+    <userTask id="n2141355160" name="Test">
+      <incoming>n104273473-n2141355160</incoming>
+      <outgoing>n2141355160-n919321328</outgoing>
+    </userTask>
+    <endEvent id="n919321328" name="Ende2">
+      <incoming>n2141355160-n919321328</incoming>
+    </endEvent>
+    <dataObject id="n1921359915" isCollection="true" name="C">
+      <dataState id="nSome_State" name="Some State"/>
+    </dataObject>
+    <sequenceFlow id="n1175607551-n104273473" sourceRef="n1175607551" targetRef="n104273473"/>
+    <sequenceFlow id="n104273473-n2141355160" sourceRef="n104273473" targetRef="n2141355160"/>
+    <sequenceFlow id="n2141355160-n919321328" sourceRef="n2141355160" targetRef="n919321328"/>
+    <association id="n104273473-n1921359915" sourceRef="n104273473" targetRef="n1921359915"/>
+    <association id="n1921359915-n2141355160" sourceRef="n1921359915" targetRef="n2141355160"/>
+  </process>
+</definitions>
+</fragments>
+<references>
+<activity id="2141355160">
+<fragment id="2117613710"/>
+<fragment id="1349386254"/>
+</activity>
+</references>
+<termination>
+<dataObject name="" state="[]"/>
+</termination>
+</PCM>

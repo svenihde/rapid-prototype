@@ -1,4 +1,4 @@
-package jcompaser;
+package jcomparser;
 /**
  * Created by Jani on 04.11.2014.
  */

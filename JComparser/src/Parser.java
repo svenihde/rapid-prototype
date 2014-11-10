@@ -1,4 +1,4 @@
-package jcompaser;
+package jcomparser;
 import com.sun.org.apache.xerces.internal.parsers.DOMParser;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;

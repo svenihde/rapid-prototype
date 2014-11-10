@@ -1,4 +1,4 @@
-package test;
+package jcompaser;
 
 import java.io.File;
 import java.io.IOException;

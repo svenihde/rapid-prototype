@@ -1,3 +1,4 @@
+package jcompaser;
 // open & read file
 import java.io.IOException;
 import java.io.File;
@@ -20,7 +21,6 @@ public class JComparser {
              therefor we need a webform in order to upload the file
      */
 	public static void main(String[] args) {
-        FileUpload f = new FileUpload();
 
 		// TODO Auto-generated method stub
 		JDBCHandler jHandler = new JDBCHandler();

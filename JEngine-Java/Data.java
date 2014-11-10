@@ -8,20 +8,42 @@ import java.util.HashMap;
 public class Data {
     public HashMap<Integer, HashMap<Integer, String>> data;
     private DataObject dataObject;
+    public HashMap<Integer, HashMap<Integer, LinkedList<Integer>>> waitingActivities;
 
     public Data(){
         data = new HashMap<Integer, HashMap<Integer, String>>();
+        waitingActivities = new HashMap<Integer, HashMap<Integer, LinkedList<Integer>>>();
     }
+
     public void init (int scenario_id){
         if (!data.containsKey(scenario_id)) {
             data.put(scenario_id, new HashMap<Integer, String>());
+            waitingActivities.put(scenario_id, new HashMap<Integer, LinkedList<Integer>>());
             dataObject = new DataObject();
             LinkedList<Integer> objects = dataObject.getAllDataObejctBy(scenario_id);
             for (int object : objects) {
                 data.get(scenario_id).put(object, "Init");
+                waitingActivities.get(scenario_id).put(object, new LinkedList<Integer>());
             }
         }
     }
+
+    public void addWaitingActivities(int scenario_id, int dataObject_id, int processElement_id){
+        waitingActivities.get(scenario_id).get(dataObject_id).add(processElement_id);
+    }
+
+    public void setWaitingActivities(int scenario_id, int dataObject_id, LinkedList<Integer> List){
+        waitingActivities.get(scenario_id).put(dataObject_id, List);
+    }
+
+    public LinkedList<Integer> getWaitingActivities(int scenario_id, int dataObject_id){
+        return waitingActivities.get(scenario_id).get(dataObject_id);
+    }
+
+    public Boolean removeWaitingActivities(int scenario_id, int dataObject_id, int processElement_id){
+        return waitingActivities.get(scenario_id).get(dataObject_id).remove(new Integer(processElement_id));
+    }
+
 
     public String getState(int scenario_id, int id){
         return data.get(scenario_id).get(id);

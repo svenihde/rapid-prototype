@@ -45,12 +45,10 @@ public class Task {
             LinkedList<String> states = association.getInDataObjectStateByProcessElementID(processElementID);
             //TODO do it better!!!
             for(int i = 0; i < associations.size(); i++){
-                System.out.println(states.get(i)+" = "+ data.getState(scenario_id, associations.get(i)));
-                if(states.get(i).equals(data.getState(scenario_id, associations.get(i)))){
-                    hasAllObjectsInTheRightState = true;
-                }else{
+                //System.out.println(states.get(i)+" = "+ data.getState(scenario_id, associations.get(i)));
+                if(!(states.get(i).equals(data.getState(scenario_id, associations.get(i))))){
                     hasAllObjectsInTheRightState = false;
-                    break;
+                    data.addWaitingActivities(scenario_id, associations.get(i), processElementID);
                 }
             }
         }
@@ -62,6 +60,12 @@ public class Task {
         LinkedList<Integer> List = this.getReferenceList(id);
         for(int element: List){
             if(enabledTask.contains(element)){
+               this.setDataObjectsOutputState(element);
+            }
+        }
+        this.setDataObjectsOutputState(id);
+        for(int element: List){
+            if(enabledTask.contains(element)){
                 this.updateTasks(element);
             }
         }
@@ -69,14 +73,17 @@ public class Task {
         return true;
     }
 
+
+
     private void updateTasks(int id){
         completedTask.add(id);
         enabledTask.removeFirstOccurrence(id);
         int processElement = sequenceFlow.getNextProcessElement(id);
-
-        if(this.proveAssociation(this.getScenarioIDByProcessElement(processElement), processElement)) {
+        int scenario_id = this.getScenarioIDByProcessElement(processElement);
+        if(this.proveAssociation(scenario_id, processElement)) {
             enabledTask.add(processElement);
         }
+
         //prove if there is an EndEvent
         if ((this.processElement.getProcessElementType(processElement)).equals("Event") && (event.getEventType(processElement)).equals("End")){
             LinkedList<Integer> allElements = this.processElement.getAllProcessElementIDByFragmentID(this.processElement.getFragmentID(processElement));
@@ -89,6 +96,26 @@ public class Task {
                     }
                 }
             }
+        }
+    }
+
+    private void setDataObjectsOutputState(int processElement_id){
+        LinkedList <Integer> associations = association.getOutDataObjectIDByProcessElementID(processElement_id);
+        LinkedList <String> states = association.getOutDataObjectStateByProcessElementID(processElement_id);
+        int scenario_id = this.getScenarioIDByProcessElement(processElement_id);
+        for(int i = 0; i < associations.size(); i++){
+            data.setDataState(scenario_id, associations.get(i), states.get(i));
+            //prove Waiting Activities
+            LinkedList<Integer> waitingActivities = data.getWaitingActivities(scenario_id, associations.get(i));
+            for(int waitingActivity: waitingActivities){
+                String state = association.getStateByObjectIDAndByProcessElementID(associations.get(i), waitingActivity);
+                //System.out.println("outputstate: "+state+ " = " + data.getState(scenario_id, associations.get(i)));
+                if(state.equals(data.getState(scenario_id, associations.get(i)))){
+                    enabledTask.add(waitingActivity);
+                    data.removeWaitingActivities(scenario_id, associations.get(i), waitingActivity);
+                }
+            }
+
         }
     }
 

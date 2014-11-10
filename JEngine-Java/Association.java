@@ -258,22 +258,22 @@ public class Association {
         return results;
     }
 
-    public LinkedList<Boolean> getInDirectionByProcessElementID(int id) {
+    public LinkedList<Integer> getOutDataObjectIDByProcessElementID(int id) {
         Connection conn = this.connect();
 
         Statement stmt = null;
         ResultSet rs = null;
-        LinkedList<Boolean> results = new LinkedList<Boolean>();
+        LinkedList<Integer> results = new LinkedList<Integer>();
         if (conn == null) return results;
 
         try {
             //Execute a query
             stmt = conn.createStatement();
-            String sql = "SELECT direction FROM Association WHERE direction = true AND processElement_id = " + id + " ORDER BY dataObject_id, processElement_id, state";
+            String sql = "SELECT dataObject_id FROM Association WHERE direction = false AND processElement_id = " + id + " ORDER BY dataObject_id, processElement_id, state";
 
             rs = stmt.executeQuery(sql);
             while (rs.next()) {
-                results.add(rs.getBoolean("direction"));
+                results.add(rs.getInt("dataObject_id"));
             }
 
             //Clean-up environment
@@ -301,4 +301,93 @@ public class Association {
 
         return results;
     }
+
+    public LinkedList<String> getOutDataObjectStateByProcessElementID(int id) {
+        Connection conn = this.connect();
+
+        Statement stmt = null;
+        ResultSet rs = null;
+        LinkedList<String> results = new LinkedList<String>();
+        if (conn == null) return results;
+
+        try {
+            //Execute a query
+            stmt = conn.createStatement();
+            String sql = "SELECT state FROM Association WHERE direction = false AND processElement_id = " + id + " ORDER BY dataObject_id, processElement_id, state";
+
+            rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                results.add(rs.getString("state"));
+            }
+
+            //Clean-up environment
+            rs.close();
+            stmt.close();
+            conn.close();
+
+        } catch (SQLException se) {
+            //Handle errors for JDBC
+            se.printStackTrace();
+        } finally {
+            //finally block used to close resources
+            try {
+                if (stmt != null)
+                    stmt.close();
+            } catch (SQLException se2) {
+            }// nothing we can do
+            try {
+                if (conn != null)
+                    conn.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+        }
+
+        return results;
+    }
+
+    public String getStateByObjectIDAndByProcessElementID(int object_id, int processElement_id) {
+        Connection conn = this.connect();
+
+        Statement stmt = null;
+        ResultSet rs = null;
+        String results= null;
+        if (conn == null) return results;
+
+        try {
+            //Execute a query
+            stmt = conn.createStatement();
+            String sql = "SELECT state FROM Association WHERE direction = true AND processElement_id = " + processElement_id + " AND dataObject_id = "+ object_id +" ORDER BY dataObject_id, processElement_id, state";
+
+            rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                results =rs.getString("state");
+            }
+
+            //Clean-up environment
+            rs.close();
+            stmt.close();
+            conn.close();
+
+        } catch (SQLException se) {
+            //Handle errors for JDBC
+            se.printStackTrace();
+        } finally {
+            //finally block used to close resources
+            try {
+                if (stmt != null)
+                    stmt.close();
+            } catch (SQLException se2) {
+            }// nothing we can do
+            try {
+                if (conn != null)
+                    conn.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+        }
+
+        return results;
+    }
+
 }

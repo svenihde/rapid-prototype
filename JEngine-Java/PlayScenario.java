@@ -43,7 +43,7 @@ public class PlayScenario extends HttpServlet{
             //Get scenario data
             int id = Integer.parseInt(request.getParameter("id"));
             task.init(id);
-            //data.init(id);
+            data.init(id);
 
 
             if(!(request.getParameter("todo") == null) && this.isInt(request.getParameter("todo"))){
@@ -96,6 +96,23 @@ public class PlayScenario extends HttpServlet{
                 out.println("</table>");
                 out.println("<br>");
             }
+            out.println("</table>");
+            out.println("<br>");
+            DataObject dataObject = new DataObject();
+            LinkedList<Integer> dataObjectIDs = dataObject.getAllDataObejctBy(id);
+            out.println("<table border=\"1\">");
+            out.println("<tr>");
+            out.println("<th>Datenobjekt ID</th>");
+            out.println("<th>Datenobjekt State</th>");
+            out.println("</tr>");
+            for(int dataObjectID: dataObjectIDs){
+                out.println("<tr>");
+                out.println("<td>" + dataObjectID + "</td>");
+                out.println("<td>" + data.getState(id, dataObjectID) + "</td>");
+                out.println("</tr>");
+            }
+            out.println("</table>");
+
         }
         //end BODY + HTML
         out.println("</body>");

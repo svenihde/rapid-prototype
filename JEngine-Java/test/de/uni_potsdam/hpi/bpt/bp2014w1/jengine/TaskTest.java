@@ -1,6 +1,8 @@
 /**
  * Created by jaspar.mang on 10.11.14.
  */
+package de.uni_potsdam.hpi.bpt.bp2014w1.jengine;
+
 import org.junit.Test;
 
 import static org.junit.Assert.*;

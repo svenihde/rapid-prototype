@@ -1,0 +1,106 @@
+<!--
+ Build XML file for JEngine-Java
+ author: Stephan Haarmann
+ version: 14/11/11
+-->
+<project name="JEngine" basedir="./JEngine-Java" default="clean-build-jengine">
+   
+    <!-- directories which should exist -->
+    <property name="src.dir" value="src"/>
+    <property name="test.dir" value="test"/>
+
+    <!-- directories to be created -->
+    <property name="build.dir" value="build"/>
+    <property name="classes.dir" value="${build.dir}/classes"/>
+    <property name="war.dir" value="${build.dir}/war"/>
+    <property name="lib.dir" value="lib"/>
+
+    <!-- a fileset with all libs -->
+    <fileset id="lib.set" dir="${lib.dir}" includes="**/*.jar"/>
+
+    <!-- adds all libs to the classpath -->
+    <path id="classpath">
+        <fileset refid="lib.set"/>
+    </path>
+
+    <!-- clean target deletes build and lib directories -->
+    <target name="clean">
+        <delete dir="${build.dir}"/>
+	    <delete>
+            <fileset dir="${lib.dir}">
+                <exclude name="**/*.md"/>
+            </fileset>
+        </delete>
+    </target>
+
+    <!-- downloads all needed libraries -->
+    <target name="deps" depends="mysqlconnector,javaxservlet,junit"/>
+
+    <!-- downloads the mysqlconnector -->
+    <target name="mysqlconnector">
+	    <exec executable="wget">
+	    	<arg value="http://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-5.1.34.zip"/>
+	    </exec>
+	    <exec executable="unzip">
+		    <arg value="mysql-connector-java-5.1.34.zip"/>
+		    <arg value="mysql-connector-java-5.1.34/mysql-connector-java-5.1.34-bin.jar"/>
+		    <arg value="-d${lib.dir}"/>
+    	</exec>
+        <delete file="mysql-connector-java-5.1.34.zip"/>
+    </target>
+
+    <!-- download javax.servlet -->
+    <target name="javaxservlet">
+	    <exec executable="wget">
+	    	<arg value="http://www.java2s.com/Code/JarDownload/javax.servlet/javax.servlet_2.5.jar.zip"/>
+	    </exec>
+	    <exec executable="unzip">
+	    	<arg value="javax.servlet_2.5.jar.zip"/>
+	    	<arg value="-d${lib.dir}"/>
+	    </exec>
+	    <delete file="javax.servlet_2.5.jar.zip"/>
+    </target>
+
+    <!-- download JUnit -->
+    <target name="junit" depends="hamcrest">
+	    <exec executable="wget">
+		    <arg value="http://search.maven.org/remotecontent?filepath=junit/junit/4.10/junit-4.10.jar"/>
+	    </exec>
+	    <move file="remotecontent?filepath=junit%2Fjunit%2F4.10%2Fjunit-4.10.jar" tofile="${lib.dir}/junit-4.10.jar"/>
+    </target>
+
+    <!-- download hamcrest -->
+    <target name="hamcrest">
+	    <exec executable="wget">
+	    	<arg value="http://search.maven.org/remotecontent?filepath=org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"/>
+	    </exec>
+	    <move file="remotecontent?filepath=org%2Fhamcrest%2Fhamcrest-core%2F1.3%2Fhamcrest-core-1.3.jar" tofile="${lib.dir}/hamcrest-core-1.3.jar"/>
+    </target>
+
+    <!-- compiles all sources -->
+    <target name="compile" depends="deps">
+        <mkdir dir="${classes.dir}"/>
+        <javac source="1.7" target="1.7" srcdir="${src.dir}" destdir="${classes.dir}" classpathref="classpath"/>
+    </target>
+
+    <!-- run all tests -->
+    <target name="test" depends="compile">
+        <junit printsummary="yes">
+       	    <classpath refid="classpath"/>
+             <batchtest>
+                  <fileset dir="${test.dir}">
+		      <include name="**/*Test*.java" />
+                  </fileset>
+             </batchtest>
+        </junit>
+    </target>
+
+    <!-- creates a WAR for the JEngine -->
+    <target name="war-jengine" depends="compile">
+        <mkdir dir="${war.dir}"/>
+        <war destfile="${war.dir}/${ant.project.name}.war"  webxml="src/metadata/web.xml">
+            <lib refid="lib.set"/>
+            <classes dir="${classes.dir}"/>
+        </war>
+    </target>
+</project>

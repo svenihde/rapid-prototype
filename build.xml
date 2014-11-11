@@ -23,6 +23,8 @@
         <fileset refid="lib.set"/>
     </path>
 
+    <target name="clean-build-jengine" depends="clean,war-jengine"/>
+
     <!-- clean target deletes build and lib directories -->
     <target name="clean">
         <delete dir="${build.dir}"/>

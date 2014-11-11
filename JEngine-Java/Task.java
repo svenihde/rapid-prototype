@@ -28,6 +28,7 @@ public class Task {
 
     public void init(int scenarioID){
         LinkedList<Integer> startEvents = fragment.getAllStartEventIDByScenarioID(scenarioID);
+        //get Startevents and the first Activities
         for(int startEvent: startEvents){
             int processElementID = sequenceFlow.getNextProcessElement(startEvent);
             if(!completedTask.contains(processElementID) && !enabledTask.contains(processElementID)) {

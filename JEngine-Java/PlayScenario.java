@@ -70,6 +70,7 @@ public class PlayScenario extends HttpServlet{
                 out.println("<tr>");
                 out.println("<th>Aktivität ID</th>");
                 out.println("<th>Aktivität Name</th>");
+                out.println("<th>(benötigte Datenobjekt ID, State)</th>");
                 out.println("<th>bearbeiten</th>");
                 out.println("</tr>");
 
@@ -88,6 +89,14 @@ public class PlayScenario extends HttpServlet{
                     out.println(">");
                     out.println("<td>" + nextElementID + "</td>");
                     out.println("<td>" + nextElementName + "</td>");
+                    out.println("<td>");
+                    Association association = new Association();
+                    LinkedList<Integer> dataObjects = association.getInDataObjectIDByProcessElementID(nextElementID);
+                    LinkedList<String> states = association.getInDataObjectStateByProcessElementID(nextElementID);
+                    for(int i = 0; i < dataObjects.size(); i++){
+                       out.print("("+dataObjects.get(i)+", "+states.get(i)+")");
+                    }
+                    out.println("</td>");
                     if (task.enabledTask.contains(nextElementID)) {
                         out.println("<td><a href=\"scenario?id=" + id + "&todo=" + nextElementID + "\">auswählen</a></td>");
                     }

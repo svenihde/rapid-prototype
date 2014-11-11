@@ -16,33 +16,33 @@
   limitations under the License.
 -->
 <web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
                       http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
-  version="3.1"
-  metadata-complete="true">
+         version="3.1"
+         metadata-complete="true">
 
-<servlet>
-    <servlet-name>Index</servlet-name>
-    <servlet-class>Index</servlet-class>
-</servlet>
-<servlet>
-    <servlet-name>PlayScenario</servlet-name>
-    <servlet-class>PlayScenario</servlet-class>
-</servlet>
-
-
+    <servlet>
+        <servlet-name>Index</servlet-name>
+        <servlet-class>de.uni_potsdam.hpi.bpt.bp2014w1.jengine.Index</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PlayScenario</servlet-name>
+        <servlet-class>de.uni_potsdam.hpi.bpt.bp2014w1.jengine.PlayScenario</servlet-class>
+    </servlet>
 
 
 
-<servlet-mapping>
-    <servlet-name>Index</servlet-name>
-    <url-pattern>/index/*</url-pattern>
-</servlet-mapping>
-<servlet-mapping>
-    <servlet-name>PlayScenario</servlet-name>
-    <url-pattern>/scenario/*</url-pattern>
-</servlet-mapping>
+
+
+    <servlet-mapping>
+        <servlet-name>Index</servlet-name>
+        <url-pattern>/index/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PlayScenario</servlet-name>
+        <url-pattern>/scenario/*</url-pattern>
+    </servlet-mapping>
 
 
 </web-app>

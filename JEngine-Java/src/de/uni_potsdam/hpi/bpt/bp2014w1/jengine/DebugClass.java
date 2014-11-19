@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.*;
 import java.lang.*;
+import java.util.HashMap;
 import java.util.LinkedList;
 
 
@@ -39,8 +40,9 @@ public class DebugClass{
         }else{
             //Get scenario data
             int id = Integer.parseInt(scID);
-            task.init(id);
             data.init(id);
+            task.init(id);
+
 
 
             if(!(toID == null) && this.isInt(toID)){
@@ -85,7 +87,14 @@ public class DebugClass{
                     System.out.print("\n");
                 }
             }
+            System.out.println("enabledTask:");
+        for(int i: task.enabledTask) System.out.println(i);
+            System.out.println("completedTask");
+        for(int i: task.completedTask) System.out.println(i);
+            System.out.println("waitingActivities");
+        for(int x: data.getWaitingActivities(id, 2)) System.out.println(x);
         }
+
     }
 
     public void destroy(){
@@ -128,6 +137,7 @@ public class DebugClass{
                 e.printStackTrace();
             }
             debug.doGet(scID, toID);
+
         }
 
         

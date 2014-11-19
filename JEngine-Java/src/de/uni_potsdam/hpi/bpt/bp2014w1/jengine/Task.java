@@ -33,7 +33,7 @@ public class Task {
         //get Startevents and the first Activities
         for(int startEvent: startEvents){
             int processElementID = sequenceFlow.getNextProcessElement(startEvent);
-            if(!completedTask.contains(processElementID) && !enabledTask.contains(processElementID)) {
+            if(!completedTask.contains(processElementID) && !enabledTask.contains(processElementID) && !data.lll(scenarioID, processElementID)) {
                 if(this.proveAssociation(scenarioID, processElementID)) {
                     enabledTask.add(processElementID);
                 }
@@ -110,7 +110,8 @@ public class Task {
             data.setDataState(scenario_id, associations.get(i), states.get(i));
             //prove Waiting Activities
             LinkedList<Integer> waitingActivities = data.getWaitingActivities(scenario_id, associations.get(i));
-            for(int waitingActivity: waitingActivities){
+            LinkedList<Integer> copy = new LinkedList<Integer>(waitingActivities);
+            for(int waitingActivity: copy){
                 String state = association.getStateByObjectIDAndByProcessElementID(associations.get(i), waitingActivity);
                 //System.out.println("outputstate: "+state+ " = " + data.getState(scenario_id, associations.get(i)));
                 if(state.equals(data.getState(scenario_id, associations.get(i)))){

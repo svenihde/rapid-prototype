@@ -9,10 +9,12 @@ Setup
 * place jsp in <tomcat home dir>\webapps\ROOT\
 * place classes in <tomcat home dir>\webapps\ROOT\WEB-INF\classes\
 
-Dependencies
+Maven libraries
 ============
 
-* Maven
+* javax.ws.rs:javax.ws.rs-api:2.0-m01
+* mysql:mysql-connector-java:5.1.33
+* com.sun.jersey.glassfish.v3.osgi:jersey-gf-bundle:1.0.3
 
 Example Values
 ============

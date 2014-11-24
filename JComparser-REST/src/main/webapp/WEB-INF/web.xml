@@ -10,7 +10,7 @@
       <servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
       <init-param>
          <param-name>com.sun.jersey.config.property.packages</param-name>         
-         <param-value>com.joejag.code.orders.restservices</param-value>
+         <param-value>de.uni_potsdam.hpi.bpt.bp2014.jcomparser.REST</param-value>
       </init-param>
       <load-on-startup>1</load-on-startup>
    </servlet>

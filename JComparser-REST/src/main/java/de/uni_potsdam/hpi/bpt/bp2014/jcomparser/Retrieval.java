@@ -9,6 +9,7 @@ import java.net.*;
  */
 public class Retrieval {
     public String getHTML(String urlToRead) {
+        /* credits to Kalpak http://stackoverflow.com/questions/1485708/how-do-i-do-a-http-get-in-java */
         URL url;
         HttpURLConnection conn;
         BufferedReader rd;
@@ -29,11 +30,5 @@ public class Retrieval {
             e.printStackTrace();
         }
         return result;
-    }
-
-    public static void main(String args[])
-    {
-        Retrieval c = new Retrieval();
-        System.out.println(c.getHTML(args[0]));
     }
 }

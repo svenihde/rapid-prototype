@@ -6,8 +6,26 @@ package de.uni_potsdam.hpi.bpt.bp2014.jcomparser;
 public class JComparser {
     public static void main() {
 
-        Connector jHandler = new Connector();
-        REST jREST = new REST();
-        Retrieval jRetrieval = new Retrieval();
+        /* Settings */
+        boolean retrieval_by_url = false;
+        boolean rest_option = false;
+        boolean mysql_option = false;
+
+        /* Initialization */
+        String JSON_response = "";
+        String Processeditor_server_url = "http://localhost:8080/processeditor-repo-api/";
+
+        if(rest_option) {
+            Connector jHandler = new Connector();
+        }
+
+        if (rest_option) {
+            REST jREST = new REST();
+        }
+        if (retrieval_by_url) {
+            Retrieval jRetrieval = new Retrieval();
+            JSON_response = jRetrieval.getHTML(Processeditor_server_url);
+            System.out.println(JSON_response);
+        }
     }
 }

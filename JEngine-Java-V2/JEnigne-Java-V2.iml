@@ -37,5 +37,6 @@
     <orderEntry type="library" name="Maven: org.glassfish.jersey.core:jersey-client:2.13" level="project" />
     <orderEntry type="library" name="Maven: javax.validation:validation-api:1.1.0.Final" level="project" />
     <orderEntry type="library" name="Maven: javax.ws.rs:javax.ws.rs-api:2.0.1" level="project" />
+    <orderEntry type="library" name="mysql:mysql-connector-java:5.1.33" level="project" />
   </component>
 </module>

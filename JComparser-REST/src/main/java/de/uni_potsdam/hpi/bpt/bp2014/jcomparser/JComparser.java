@@ -8,5 +8,6 @@ public class JComparser {
 
         Connector jHandler = new Connector();
         REST jREST = new REST();
+        Retrieval jRetrieval = new Retrieval();
     }
 }

@@ -20,7 +20,7 @@ public class REST {
     // Stores state simply in a static collection class.
     private static Map<String, String> orders = new TreeMap<String, String>();
 
-    @Path("/{order}")
+    @Path("/{import}")
     @PUT
     @Produces("text/html")
     public String create(@PathParam("order") String order,
@@ -30,7 +30,7 @@ public class REST {
         return "Added order #" + order;
     }
 
-    @Path("/{order}")
+    @Path("/{import}")
     @GET
     @Produces("text/html")
     public String find(@PathParam("order") String order)
@@ -42,7 +42,7 @@ public class REST {
         throw new WebApplicationException(Response.Status.NOT_FOUND);
     }
 
-    @Path("/list")
+    @Path("/import")
     @GET
     @Produces("text/html")
     public String list()

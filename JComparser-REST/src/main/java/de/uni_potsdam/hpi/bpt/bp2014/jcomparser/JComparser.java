@@ -7,5 +7,6 @@ public class JComparser {
     public static void main() {
 
         Connector jHandler = new Connector();
+        REST jREST = new REST();
     }
 }

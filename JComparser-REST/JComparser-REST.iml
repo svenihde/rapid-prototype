@@ -12,6 +12,7 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="mysql:mysql-connector-java:5.1.33" level="project" />
+    <orderEntry type="library" name="javax.ws.rs:javax.ws.rs-api:2.0-m01" level="project" />
   </component>
 </module>
 

@@ -12,9 +12,7 @@ Setup
 Dependencies
 ============
 
-* (Apache Commons FileUpload 1.3.1)[http://commons.apache.org/proper/commons-fileupload/download_fileupload.cgi]
-* (Dom XML Parser)[http://www.jdom.org/]
-* (commons-io-2.4)[http://commons.apache.org/proper/commons-io/]
+* Maven
 
 Example Values
 ============

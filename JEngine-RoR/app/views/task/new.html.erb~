@@ -1,0 +1,25 @@
+<table>    
+ <tr>    
+    <th>task ID</th> 
+    <th><%= @next_task.id %></th>
+</tr>
+<tr>                     
+    <th>title</th>
+    <th><%= @next_task.title %></th>
+</tr>
+<tr>
+    <th>description</th>
+    <th><%= @next_task.description %></th> 
+</tr>                      
+</table> 
+
+
+<%= form_for :task do |task| %>
+  <p>
+    <%= task.label :id %><br>
+    <%= task.text_field :id, :value => @next_task.id %>
+  </p>
+  <p>
+    <%= task.submit %>
+  </p>
+<% end %>

@@ -1,7 +1,7 @@
-JComparser XML
+JComparser REST based
 ===============
 
-The JComparser is a rapid prototype to get a better understanding of parsing a BPMN XML and preparing it for DB usage
+The JComparser is a rapid prototype to get a better understanding of implementing a BPMN REST Interface and preparing it for DB usage
 
 Setup
 ============

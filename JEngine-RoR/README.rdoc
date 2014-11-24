@@ -1,4 +1,4 @@
-== JEngine
+== JEngine RoR
 
 The JEngine is a rapid prototype to get a better understanding of a modeling execution environment.
 
@@ -14,6 +14,12 @@ This JEngine does execute
 * bundle install
 * bin/rake db:migrate
 * bin/rake db:seed 
+
+== version 2
+
+* handle gateways
+* dataobjects
+* complex structure
 
 Status: closed - running stable within v1
 

@@ -1,0 +1,26 @@
+== JEngine RoR
+
+The JEngine is a rapid prototype to get a better understanding of a modeling execution environment.
+
+== Features
+
+This JEngine does execute
+* sequential
+* usertasks
+* for each user
+
+== INSTALL
+
+* bundle install
+* bin/rake db:migrate
+* bin/rake db:seed 
+
+== version 2
+
+* handle gateways
+* dataobjects
+* complex structure
+
+Status: closed - running stable within v1
+
+:-)

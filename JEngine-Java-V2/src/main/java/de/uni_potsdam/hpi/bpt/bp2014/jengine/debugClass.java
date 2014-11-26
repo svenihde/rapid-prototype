@@ -1,5 +1,7 @@
 package de.uni_potsdam.hpi.bpt.bp2014.jengine;
 
+import de.uni_potsdam.hpi.bpt.bp2014.database.Connection;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -24,6 +26,7 @@ public class debugClass {
     }
 
     public static void main(String args[]){
-        String scenarioID = selectScenario();
+        //String scenarioID = selectScenario();
+        Connection connection = Connection.getInstance();
     }
 }

@@ -26,7 +26,6 @@ public class debugClass {
     }
 
     public static void main(String args[]){
-        //String scenarioID = selectScenario();
-        Connection connection = Connection.getInstance();
+        String scenarioID = selectScenario();
     }
 }

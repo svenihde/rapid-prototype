@@ -7,9 +7,9 @@ public class JComparser {
     public static void main() {
 
         /* Settings */
-        boolean retrieval_by_url = false;
+        boolean retrieval_by_url = true;
         boolean rest_option = false;
-        boolean mysql_option = false;
+        boolean mysql_option = true;
 
         /* Initialization */
         String JSON_response = "";

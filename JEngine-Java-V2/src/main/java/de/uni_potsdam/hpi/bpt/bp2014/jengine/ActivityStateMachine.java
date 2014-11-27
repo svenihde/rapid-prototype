@@ -10,6 +10,7 @@ public class ActivityStateMachine extends StateMachine {
     private int activity_id;
 
     public ActivityStateMachine(int activity_id){
+        super();
         this.activity_id = activity_id;
     }
 

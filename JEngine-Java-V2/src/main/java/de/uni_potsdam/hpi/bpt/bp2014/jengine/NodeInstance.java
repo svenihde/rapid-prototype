@@ -7,4 +7,9 @@ public class NodeInstance {
     private OutgoingBehavior outgoingBehavior;
     private IncomingBehavior incomingBehavior;
     private StateMachine stateMachine;
+    private int id;
+
+    public NodeInstance(int id){
+        this.id = id;
+    }
 }

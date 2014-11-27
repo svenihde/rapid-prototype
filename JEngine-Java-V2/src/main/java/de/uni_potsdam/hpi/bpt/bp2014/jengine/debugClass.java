@@ -1,6 +1,7 @@
 package de.uni_potsdam.hpi.bpt.bp2014.jengine;
 
 import de.uni_potsdam.hpi.bpt.bp2014.database.Connection;
+import de.uni_potsdam.hpi.bpt.bp2014.database.DbActivityInstance;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -27,5 +28,7 @@ public class debugClass {
 
     public static void main(String args[]){
         String scenarioID = selectScenario();
+        DbActivityInstance dbActivityInstance = new DbActivityInstance();
+        dbActivityInstance.setState(1 , "init");
     }
 }

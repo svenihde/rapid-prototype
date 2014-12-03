@@ -1,5 +1,7 @@
 package de.uni_potsdam.hpi.bpt.bp2014.jcomparser;
 
+import java.util.List;
+
 /**
  * Created by Jani on 24.11.2014.
  */
@@ -27,5 +29,9 @@ public class JComparser {
             JSON_response = jRetrieval.getHTML(Processeditor_server_url);
             System.out.println(JSON_response);
         }
+    }
+
+    public static void handleFileUpload(List pcm) {
+
     }
 }

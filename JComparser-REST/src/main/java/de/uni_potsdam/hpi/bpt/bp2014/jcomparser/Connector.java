@@ -15,8 +15,8 @@ public class Connector {
     static final String DB_URL = "jdbc:mysql://localhost:3306/JEngine";
 
     // Database credentials
-    static final String USER = "root";
-    static final String PASS = "samsa";
+    static final String USER = "jengine_user";
+    static final String PASS = "wAgeDqkbW3rOawiYYmQz";
     public static Connection connect() {
         Connection conn = null;
         try {

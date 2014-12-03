@@ -28,6 +28,7 @@ public class debugClass {
 
     public static void main(String args[]){
         String scenarioID = selectScenario();
+        ScenarioInstance scenarioInstance = new ScenarioInstance(new Integer(scenarioID));
         DbActivityInstance dbActivityInstance = new DbActivityInstance();
         dbActivityInstance.setState(1 , "init");
     }

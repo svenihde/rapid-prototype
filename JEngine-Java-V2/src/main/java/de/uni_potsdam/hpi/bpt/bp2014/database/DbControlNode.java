@@ -5,23 +5,23 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
- * Created by jaspar.mang on 26.11.14.
+ * Created by jaspar.mang on 01.12.14.
  */
-public class DbActivityInstance {
-    public String getState(int id) {
+public class DbControlNode {
+    public int getStartEventID(int fragment_id) {
         java.sql.Connection conn = Connection.getInstance().connect();
         Statement stmt = null;
         ResultSet rs = null;
-        String results = "";
+        int results = -1;
         if (conn == null) return results;
 
         try {
             //Execute a query
             stmt = conn.createStatement();
-            String sql = "SELECT activity_state FROM ActivityInstance WHERE id = " + id;
+            String sql = "SELECT id FROM controlnode WHERE type = 'Startevent' AND fragment_id = " + fragment_id;
             rs = stmt.executeQuery(sql);
             rs.next();
-            results = rs.getString("activity_state");
+            results = rs.getInt("id");
             //Clean-up environment
             rs.close();
             stmt.close();
@@ -45,18 +45,22 @@ public class DbActivityInstance {
         }
         return results;
     }
-    public void setState(int id, String state) {
+    public String getType(int controlNode_id) {
         java.sql.Connection conn = Connection.getInstance().connect();
         Statement stmt = null;
         ResultSet rs = null;
-        if (conn == null) return;
+        String results = "";
+        if (conn == null) return results;
 
         try {
             //Execute a query
             stmt = conn.createStatement();
-            String sql = "UPDATE ActivityInstance SET activity_state = '" + state + "' WHERE id = " + id;
-            stmt.executeUpdate(sql);
+            String sql = "SELECT type FROM controlnode WHERE id = " + controlNode_id;
+            rs = stmt.executeQuery(sql);
+            rs.next();
+            results = rs.getString("type");
             //Clean-up environment
+            rs.close();
             stmt.close();
             conn.close();
         } catch (SQLException se) {
@@ -76,40 +80,6 @@ public class DbActivityInstance {
                 se.printStackTrace();
             }
         }
+        return results;
     }
-
-
-    public void createNewActivityInstance(int controlNodeInstance_id, String ActivityType, String ActivityState) {
-        java.sql.Connection conn = Connection.getInstance().connect();
-        Statement stmt = null;
-        ResultSet rs = null;
-        if (conn == null) return;
-
-        try {
-            //Execute a query
-            stmt = conn.createStatement();
-            String sql = "INSERT INTO activityinstance (id, type, role_id, activity_state, workitem_state) VALUES (" + controlNodeInstance_id + ", '"+ ActivityType +"', 1,'" + ActivityState + "', 'init')";
-            stmt.executeUpdate(sql);
-            //Clean-up environment
-            stmt.close();
-            conn.close();
-        } catch (SQLException se) {
-            //Handle errors for JDBC
-            se.printStackTrace();
-        } finally {
-            //finally block used to close resources
-            try {
-                if (stmt != null)
-                    stmt.close();
-            } catch (SQLException se2) {
-            }// nothing we can do
-            try {
-                if (conn != null)
-                    conn.close();
-            } catch (SQLException se) {
-                se.printStackTrace();
-            }
-        }
-    }
-
 }

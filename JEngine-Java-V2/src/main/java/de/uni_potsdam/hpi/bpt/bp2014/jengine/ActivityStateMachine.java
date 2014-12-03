@@ -7,19 +7,21 @@ import de.uni_potsdam.hpi.bpt.bp2014.database.DbActivityInstance;
  */
 public class ActivityStateMachine extends StateMachine {
     private DbActivityInstance dbActivityInstance = new DbActivityInstance();
-    private int activity_id;
 
-    public ActivityStateMachine(int activity_id){
+
+    public ActivityStateMachine(int activityInstance_id, ScenarioInstance scenarioInstance){
         super();
-        this.activity_id = activity_id;
+        this.scenarioInstance = scenarioInstance;
+        this.controlNodeInstance_id = activityInstance_id;
+        state = getDBState();
     }
 
-    public String getState(){
-        return dbActivityInstance.getState(activity_id);
+    private String getDBState(){
+        return dbActivityInstance.getState(controlNodeInstance_id);
     }
 
     public Boolean enableControlFlow(){
-        String state = this.getState();
+        //String state = this.getState();
         if(state.equals("init")) {
             this.setState("ready(ControlFlow)");
             return true;
@@ -33,7 +35,7 @@ public class ActivityStateMachine extends StateMachine {
     }
 
     public Boolean enableData(){
-        String state = this.getState();
+        //String state = this.getState();
         if(state.equals("init")) {
             this.setState("ready(Data)");
             return true;
@@ -47,7 +49,7 @@ public class ActivityStateMachine extends StateMachine {
     }
 
     public Boolean begin(){
-        String state = this.getState();
+        //String state = this.getState();
         if(state.equals("ready")){
             this.setState("running");
             return true;
@@ -56,7 +58,7 @@ public class ActivityStateMachine extends StateMachine {
     }
 
     public Boolean terminate(){
-        String state = this.getState();
+        //String state = this.getState();
         if(state.equals("running")){
             this.setState("terminated");
             return true;
@@ -65,7 +67,7 @@ public class ActivityStateMachine extends StateMachine {
     }
 
     public Boolean skip(){
-        String state = this.getState();
+        //String state = this.getState();
         if(state.equals("init") || this.isReady(state)){
             this.setState("skipped");
             return true;
@@ -81,6 +83,7 @@ public class ActivityStateMachine extends StateMachine {
         return false;
     }
     private void setState(String state){
-        dbActivityInstance.setState(activity_id, state);
+        this.state = state;
+        dbActivityInstance.setState(controlNodeInstance_id, state);
     }
 }

@@ -10,9 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-/**
- * Created by Jani on 03.12.2014.
- */
+
 public class Parser {
 
     /* parse the XML File */

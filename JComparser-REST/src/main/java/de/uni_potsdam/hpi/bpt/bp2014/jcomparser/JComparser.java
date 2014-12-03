@@ -2,9 +2,6 @@ package de.uni_potsdam.hpi.bpt.bp2014.jcomparser;
 
 import java.util.List;
 
-/**
- * Created by Jani on 24.11.2014.
- */
 public class JComparser {
     public static void main() {
 

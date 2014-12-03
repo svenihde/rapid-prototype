@@ -15,9 +15,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-/**
- * Created by Jani on 03.12.2014.
- */
 public class FileUpload extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
@@ -78,7 +75,7 @@ public class FileUpload extends HttpServlet {
         }
 
         // Calling the postprocessing asynchronously
-        
+
         /* we aint support java 1.8 :(
         Thread a = new Thread(() -> {
             de.uni_potsdam.hpi.bpt.bp2014.jcomparser.JComparser.handleFileUpload(pcm);

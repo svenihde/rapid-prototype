@@ -6,9 +6,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-/**
- * Created by Jani on 03.12.2014.
- */
 public class Seed {
 
     public void getDBcontent(){

@@ -20,17 +20,14 @@ public class Connector {
             Class.forName("com.mysql.jdbc.Driver");
 
             //Open a connection
-
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
 
         } catch (SQLException se) {
             //Handle errors for JDBC
-            System.out.println("hier");
             se.printStackTrace();
+
         } catch (Exception e) {
             //Handle errors for Class.forName
-            System.out.println("da");
-
             e.printStackTrace();
         }
         return conn;

@@ -3,10 +3,6 @@ package de.uni_potsdam.hpi.bpt.bp2014.jcomparser;
 import java.io.*;
 import java.net.*;
 
-
-/**
- * Created by Jani on 24.11.2014.
- */
 public class Retrieval {
     public String getHTML(String urlToRead) {
         /* credits to Kalpak http://stackoverflow.com/questions/1485708/how-do-i-do-a-http-get-in-java */

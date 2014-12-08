@@ -1,8 +1,5 @@
 package de.uni_potsdam.hpi.bpt.bp2014.jcomparser;
 
-/**
- * Created by Jani on 24.11.2014.
- */
 import java.util.Map;
 import java.util.TreeMap;
 
